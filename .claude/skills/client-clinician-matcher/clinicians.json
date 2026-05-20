@@ -1,0 +1,243 @@
+{
+  "clinicians": [
+    {
+      "id": "81ba219a-6b36-4143-aaea-749b747814a0",
+      "first_name": "Sarah",
+      "last_name": "Johnson",
+      "bio": "Experienced therapist specializing in autism spectrum disorders and behavioral therapy.",
+      "specialties": [
+        "Applied Behavior Analysis",
+        "Early intervention"
+      ],
+      "available_time_slots": [
+        "2026-06-01T02:00:00.000Z",
+        "2026-06-03T07:00:00.000Z"
+      ],
+      "location": "Boston, Massachusetts",
+      "languages": [
+        "English"
+      ],
+      "preferred_modality": [
+        "in_person"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "af7cd1f5-8110-4bf0-8f25-ae260485ec60",
+      "first_name": "Michael",
+      "last_name": "Chen",
+      "bio": "Clinician focused on social skills development and family-centered therapy approaches.",
+      "specialties": [
+        "Social skills programming",
+        "Family therapy"
+      ],
+      "available_time_slots": [
+        "2026-06-02T03:00:00.000Z",
+        "2026-06-04T08:00:00.000Z"
+      ],
+      "location": "San Francisco, California",
+      "languages": [
+        "English",
+        "Mandarin"
+      ],
+      "preferred_modality": [
+        "telehealth"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "4a51136e-cd6a-4f76-9711-bf991786d5f3",
+      "first_name": "Aisha",
+      "last_name": "Williams",
+      "bio": "Specialist in sensory integration and naturalistic developmental approaches.",
+      "specialties": [
+        "Sensory integration",
+        "Naturalistic teaching"
+      ],
+      "available_time_slots": [
+        "2026-06-05T04:00:00.000Z",
+        "2026-06-07T09:00:00.000Z"
+      ],
+      "location": "Atlanta, Georgia",
+      "languages": [
+        "English"
+      ],
+      "preferred_modality": [
+        "hybrid"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "ed92c574-7267-490f-90ef-0d4dac9fe494",
+      "first_name": "Carlos",
+      "last_name": "Rivera",
+      "bio": "Bilingual therapist with expertise in early language development and play-based interventions.",
+      "specialties": [
+        "Early language development",
+        "Play-based therapy"
+      ],
+      "available_time_slots": [
+        "2026-06-06T02:30:00.000Z",
+        "2026-06-08T06:00:00.000Z"
+      ],
+      "location": "Miami, Florida",
+      "languages": [
+        "English",
+        "Spanish"
+      ],
+      "preferred_modality": [
+        "in_person",
+        "telehealth"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "c7634cf4-977f-436d-a288-da5c195ed954",
+      "first_name": "Emily",
+      "last_name": "Thompson",
+      "bio": "Behavioral specialist experienced in school-based interventions and peer-mediated approaches.",
+      "specialties": [
+        "School-based interventions",
+        "Peer-mediated approaches"
+      ],
+      "available_time_slots": [
+        "2026-06-09T03:00:00.000Z",
+        "2026-06-11T07:30:00.000Z"
+      ],
+      "location": "Seattle, Washington",
+      "languages": [
+        "English"
+      ],
+      "preferred_modality": [
+        "hybrid"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "d04c42e3-4207-4c91-adce-ae67227b481c",
+      "first_name": "David",
+      "last_name": "Park",
+      "bio": "Clinician specializing in adaptive behavior and cognitive development for children.",
+      "specialties": [
+        "Adaptive behavior",
+        "Cognitive development"
+      ],
+      "available_time_slots": [
+        "2026-06-10T01:00:00.000Z",
+        "2026-06-12T05:00:00.000Z"
+      ],
+      "location": "Chicago, Illinois",
+      "languages": [
+        "English",
+        "Korean"
+      ],
+      "preferred_modality": [
+        "telehealth"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "3f08015c-4ee4-4cbe-8a4d-9bdc8a1b04ef",
+      "first_name": "Priya",
+      "last_name": "Patel",
+      "bio": "Therapist with expertise in sensory processing and parent-implemented intervention programs.",
+      "specialties": [
+        "Sensory processing",
+        "Parent training"
+      ],
+      "available_time_slots": [
+        "2026-06-13T02:00:00.000Z",
+        "2026-06-15T08:00:00.000Z"
+      ],
+      "location": "Houston, Texas",
+      "languages": [
+        "English",
+        "Hindi"
+      ],
+      "preferred_modality": [
+        "in_person"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "b486f05b-ed7b-4eab-b17b-98f39fc7b010",
+      "first_name": "James",
+      "last_name": "Robinson",
+      "bio": "Specialist in verbal behavior therapy and communication development for non-verbal children.",
+      "specialties": [
+        "Verbal behavior therapy",
+        "Augmentative communication"
+      ],
+      "available_time_slots": [
+        "2026-06-14T04:00:00.000Z",
+        "2026-06-16T09:00:00.000Z"
+      ],
+      "location": "Phoenix, Arizona",
+      "languages": [
+        "English"
+      ],
+      "preferred_modality": [
+        "hybrid"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "0056256c-f556-43ec-b54d-85ae992c32bb",
+      "first_name": "Mei",
+      "last_name": "Liu",
+      "bio": "Clinician focused on executive function skills and transition planning for adolescents.",
+      "specialties": [
+        "Executive function",
+        "Transition planning"
+      ],
+      "available_time_slots": [
+        "2026-06-17T03:00:00.000Z",
+        "2026-06-19T07:00:00.000Z"
+      ],
+      "location": "Los Angeles, California",
+      "languages": [
+        "English",
+        "Mandarin",
+        "Cantonese"
+      ],
+      "preferred_modality": [
+        "telehealth"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    },
+    {
+      "id": "6bc55b35-138c-483d-a948-c79f7a161855",
+      "first_name": "Omar",
+      "last_name": "Hassan",
+      "bio": "Behavioral therapist specializing in functional communication training and self-regulation.",
+      "specialties": [
+        "Functional communication training",
+        "Self-regulation"
+      ],
+      "available_time_slots": [
+        "2026-06-18T02:00:00.000Z",
+        "2026-06-20T06:30:00.000Z"
+      ],
+      "location": "Denver, Colorado",
+      "languages": [
+        "English",
+        "Arabic"
+      ],
+      "preferred_modality": [
+        "in_person",
+        "hybrid"
+      ],
+      "created_at": "2026-05-18T19:18:00.709Z",
+      "updated_at": "2026-05-18T19:18:00.709Z"
+    }
+  ]
+}
