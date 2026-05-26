@@ -23,7 +23,7 @@ You must create a `.env` file in **both** the `frontend/` and `backend/` directo
 Create the files and paste the following database connection string into both:
 
 ```env
-DATABASE_URL="postgresql://postgres:ABBA2026@127.0.0.1:5433/postgres?schema=public"
+DATABASE_URL="postgresql://postgres:mysecretpassword@127.0.0.1:5433/postgres?schema=public"
 ```
 
 ### 2. Start the Database Layer
@@ -32,7 +32,7 @@ Open your terminal, navigate to the `backend` folder, and spin up the Docker con
 
 ```bash
 cd backend
-docker run --name abba-postgres -e POSTGRES_PASSWORD=ABBA2026 -p 5433:5432 -d postgres
+docker run --name abba-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5433:5432 -d postgres
 ```
 
 ### 3. Initialize Prisma (Schema & Seed)
