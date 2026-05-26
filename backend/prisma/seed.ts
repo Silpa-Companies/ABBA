@@ -22,47 +22,10 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  console.log("Seeding database with initial client profiles...");
+  console.log("No mock data to seed. Skipping...");
 
-  // Clear existing data to prevent duplicates during testing
-  await prisma.client_profile.deleteMany();
-
-  await prisma.client_profile.createMany({
-    data: [
-      {
-        first_name: "Eleanor",
-        last_name: "Lawson",
-        communication_level: 4,
-        social_interaction_level: 3,
-        sensory_level: 2,
-        location: "Dallas, TX",
-        preferred_language: "English",
-        preferred_modality: "hybrid",
-      },
-      {
-        first_name: "Marcus",
-        last_name: "Reyes",
-        communication_level: 2,
-        social_interaction_level: 4,
-        sensory_level: 5,
-        location: "Austin, TX",
-        preferred_language: "Spanish",
-        preferred_modality: "telehealth",
-      },
-      {
-        first_name: "Aisha",
-        last_name: "Kamara",
-        communication_level: 5,
-        social_interaction_level: 5,
-        sensory_level: 1,
-        location: "Houston, TX",
-        preferred_language: "English",
-        preferred_modality: "in_person",
-      },
-    ],
-  });
-
-  console.log("Database seeded successfully!");
+  // If you ever need to wipe the database during testing, uncomment this:
+  // await prisma.client_profile.deleteMany();
 }
 
 main()

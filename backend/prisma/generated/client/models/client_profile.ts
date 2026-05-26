@@ -50,6 +50,18 @@ export type Client_profileMinAggregateOutputType = {
   updated_at: Date | null
   first_name: string | null
   last_name: string | null
+  dob: Date | null
+  phone: string | null
+  email: string | null
+  gender_identity: string | null
+  pronouns: string | null
+  emergency_name: string | null
+  emergency_phone: string | null
+  reason_for_care: string | null
+  treatment_goals: string | null
+  insurance_provider: string | null
+  insurance_plan: string | null
+  insurance_id: string | null
 }
 
 export type Client_profileMaxAggregateOutputType = {
@@ -64,6 +76,18 @@ export type Client_profileMaxAggregateOutputType = {
   updated_at: Date | null
   first_name: string | null
   last_name: string | null
+  dob: Date | null
+  phone: string | null
+  email: string | null
+  gender_identity: string | null
+  pronouns: string | null
+  emergency_name: string | null
+  emergency_phone: string | null
+  reason_for_care: string | null
+  treatment_goals: string | null
+  insurance_provider: string | null
+  insurance_plan: string | null
+  insurance_id: string | null
 }
 
 export type Client_profileCountAggregateOutputType = {
@@ -79,6 +103,18 @@ export type Client_profileCountAggregateOutputType = {
   updated_at: number
   first_name: number
   last_name: number
+  dob: number
+  phone: number
+  email: number
+  gender_identity: number
+  pronouns: number
+  emergency_name: number
+  emergency_phone: number
+  reason_for_care: number
+  treatment_goals: number
+  insurance_provider: number
+  insurance_plan: number
+  insurance_id: number
   _all: number
 }
 
@@ -107,6 +143,18 @@ export type Client_profileMinAggregateInputType = {
   updated_at?: true
   first_name?: true
   last_name?: true
+  dob?: true
+  phone?: true
+  email?: true
+  gender_identity?: true
+  pronouns?: true
+  emergency_name?: true
+  emergency_phone?: true
+  reason_for_care?: true
+  treatment_goals?: true
+  insurance_provider?: true
+  insurance_plan?: true
+  insurance_id?: true
 }
 
 export type Client_profileMaxAggregateInputType = {
@@ -121,6 +169,18 @@ export type Client_profileMaxAggregateInputType = {
   updated_at?: true
   first_name?: true
   last_name?: true
+  dob?: true
+  phone?: true
+  email?: true
+  gender_identity?: true
+  pronouns?: true
+  emergency_name?: true
+  emergency_phone?: true
+  reason_for_care?: true
+  treatment_goals?: true
+  insurance_provider?: true
+  insurance_plan?: true
+  insurance_id?: true
 }
 
 export type Client_profileCountAggregateInputType = {
@@ -136,6 +196,18 @@ export type Client_profileCountAggregateInputType = {
   updated_at?: true
   first_name?: true
   last_name?: true
+  dob?: true
+  phone?: true
+  email?: true
+  gender_identity?: true
+  pronouns?: true
+  emergency_name?: true
+  emergency_phone?: true
+  reason_for_care?: true
+  treatment_goals?: true
+  insurance_provider?: true
+  insurance_plan?: true
+  insurance_id?: true
   _all?: true
 }
 
@@ -238,6 +310,18 @@ export type Client_profileGroupByOutputType = {
   updated_at: Date
   first_name: string
   last_name: string
+  dob: Date | null
+  phone: string | null
+  email: string | null
+  gender_identity: string | null
+  pronouns: string | null
+  emergency_name: string | null
+  emergency_phone: string | null
+  reason_for_care: string | null
+  treatment_goals: string | null
+  insurance_provider: string | null
+  insurance_plan: string | null
+  insurance_id: string | null
   _count: Client_profileCountAggregateOutputType | null
   _avg: Client_profileAvgAggregateOutputType | null
   _sum: Client_profileSumAggregateOutputType | null
@@ -276,6 +360,18 @@ export type client_profileWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
   first_name?: Prisma.StringFilter<"client_profile"> | string
   last_name?: Prisma.StringFilter<"client_profile"> | string
+  dob?: Prisma.DateTimeNullableFilter<"client_profile"> | Date | string | null
+  phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  email?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  gender_identity?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  pronouns?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  emergency_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  emergency_phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  reason_for_care?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  treatment_goals?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  insurance_provider?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  insurance_plan?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  insurance_id?: Prisma.StringNullableFilter<"client_profile"> | string | null
 }
 
 export type client_profileOrderByWithRelationInput = {
@@ -291,6 +387,18 @@ export type client_profileOrderByWithRelationInput = {
   updated_at?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
+  dob?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender_identity?: Prisma.SortOrderInput | Prisma.SortOrder
+  pronouns?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergency_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergency_phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  reason_for_care?: Prisma.SortOrderInput | Prisma.SortOrder
+  treatment_goals?: Prisma.SortOrderInput | Prisma.SortOrder
+  insurance_provider?: Prisma.SortOrderInput | Prisma.SortOrder
+  insurance_plan?: Prisma.SortOrderInput | Prisma.SortOrder
+  insurance_id?: Prisma.SortOrderInput | Prisma.SortOrder
 }
 
 export type client_profileWhereUniqueInput = Prisma.AtLeast<{
@@ -309,6 +417,18 @@ export type client_profileWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
   first_name?: Prisma.StringFilter<"client_profile"> | string
   last_name?: Prisma.StringFilter<"client_profile"> | string
+  dob?: Prisma.DateTimeNullableFilter<"client_profile"> | Date | string | null
+  phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  email?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  gender_identity?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  pronouns?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  emergency_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  emergency_phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  reason_for_care?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  treatment_goals?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  insurance_provider?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  insurance_plan?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  insurance_id?: Prisma.StringNullableFilter<"client_profile"> | string | null
 }, "id">
 
 export type client_profileOrderByWithAggregationInput = {
@@ -324,6 +444,18 @@ export type client_profileOrderByWithAggregationInput = {
   updated_at?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
+  dob?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender_identity?: Prisma.SortOrderInput | Prisma.SortOrder
+  pronouns?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergency_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergency_phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  reason_for_care?: Prisma.SortOrderInput | Prisma.SortOrder
+  treatment_goals?: Prisma.SortOrderInput | Prisma.SortOrder
+  insurance_provider?: Prisma.SortOrderInput | Prisma.SortOrder
+  insurance_plan?: Prisma.SortOrderInput | Prisma.SortOrder
+  insurance_id?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.client_profileCountOrderByAggregateInput
   _avg?: Prisma.client_profileAvgOrderByAggregateInput
   _max?: Prisma.client_profileMaxOrderByAggregateInput
@@ -347,6 +479,18 @@ export type client_profileScalarWhereWithAggregatesInput = {
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"client_profile"> | Date | string
   first_name?: Prisma.StringWithAggregatesFilter<"client_profile"> | string
   last_name?: Prisma.StringWithAggregatesFilter<"client_profile"> | string
+  dob?: Prisma.DateTimeNullableWithAggregatesFilter<"client_profile"> | Date | string | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  email?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  gender_identity?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  pronouns?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  emergency_name?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  emergency_phone?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  reason_for_care?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  treatment_goals?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  insurance_provider?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  insurance_plan?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  insurance_id?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
 }
 
 export type client_profileCreateInput = {
@@ -362,6 +506,18 @@ export type client_profileCreateInput = {
   updated_at?: Date | string
   first_name?: string
   last_name?: string
+  dob?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  gender_identity?: string | null
+  pronouns?: string | null
+  emergency_name?: string | null
+  emergency_phone?: string | null
+  reason_for_care?: string | null
+  treatment_goals?: string | null
+  insurance_provider?: string | null
+  insurance_plan?: string | null
+  insurance_id?: string | null
 }
 
 export type client_profileUncheckedCreateInput = {
@@ -377,6 +533,18 @@ export type client_profileUncheckedCreateInput = {
   updated_at?: Date | string
   first_name?: string
   last_name?: string
+  dob?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  gender_identity?: string | null
+  pronouns?: string | null
+  emergency_name?: string | null
+  emergency_phone?: string | null
+  reason_for_care?: string | null
+  treatment_goals?: string | null
+  insurance_provider?: string | null
+  insurance_plan?: string | null
+  insurance_id?: string | null
 }
 
 export type client_profileUpdateInput = {
@@ -392,6 +560,18 @@ export type client_profileUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender_identity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pronouns?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type client_profileUncheckedUpdateInput = {
@@ -407,6 +587,18 @@ export type client_profileUncheckedUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender_identity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pronouns?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type client_profileCreateManyInput = {
@@ -422,6 +614,18 @@ export type client_profileCreateManyInput = {
   updated_at?: Date | string
   first_name?: string
   last_name?: string
+  dob?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  gender_identity?: string | null
+  pronouns?: string | null
+  emergency_name?: string | null
+  emergency_phone?: string | null
+  reason_for_care?: string | null
+  treatment_goals?: string | null
+  insurance_provider?: string | null
+  insurance_plan?: string | null
+  insurance_id?: string | null
 }
 
 export type client_profileUpdateManyMutationInput = {
@@ -437,6 +641,18 @@ export type client_profileUpdateManyMutationInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender_identity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pronouns?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type client_profileUncheckedUpdateManyInput = {
@@ -452,6 +668,18 @@ export type client_profileUncheckedUpdateManyInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender_identity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pronouns?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DateTimeNullableListFilter<$PrismaModel = never> = {
@@ -475,6 +703,18 @@ export type client_profileCountOrderByAggregateInput = {
   updated_at?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
+  dob?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  gender_identity?: Prisma.SortOrder
+  pronouns?: Prisma.SortOrder
+  emergency_name?: Prisma.SortOrder
+  emergency_phone?: Prisma.SortOrder
+  reason_for_care?: Prisma.SortOrder
+  treatment_goals?: Prisma.SortOrder
+  insurance_provider?: Prisma.SortOrder
+  insurance_plan?: Prisma.SortOrder
+  insurance_id?: Prisma.SortOrder
 }
 
 export type client_profileAvgOrderByAggregateInput = {
@@ -495,6 +735,18 @@ export type client_profileMaxOrderByAggregateInput = {
   updated_at?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
+  dob?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  gender_identity?: Prisma.SortOrder
+  pronouns?: Prisma.SortOrder
+  emergency_name?: Prisma.SortOrder
+  emergency_phone?: Prisma.SortOrder
+  reason_for_care?: Prisma.SortOrder
+  treatment_goals?: Prisma.SortOrder
+  insurance_provider?: Prisma.SortOrder
+  insurance_plan?: Prisma.SortOrder
+  insurance_id?: Prisma.SortOrder
 }
 
 export type client_profileMinOrderByAggregateInput = {
@@ -509,6 +761,18 @@ export type client_profileMinOrderByAggregateInput = {
   updated_at?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
+  dob?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  gender_identity?: Prisma.SortOrder
+  pronouns?: Prisma.SortOrder
+  emergency_name?: Prisma.SortOrder
+  emergency_phone?: Prisma.SortOrder
+  reason_for_care?: Prisma.SortOrder
+  treatment_goals?: Prisma.SortOrder
+  insurance_provider?: Prisma.SortOrder
+  insurance_plan?: Prisma.SortOrder
+  insurance_id?: Prisma.SortOrder
 }
 
 export type client_profileSumOrderByAggregateInput = {
@@ -546,6 +810,14 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 
 
 export type client_profileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -561,6 +833,18 @@ export type client_profileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   updated_at?: boolean
   first_name?: boolean
   last_name?: boolean
+  dob?: boolean
+  phone?: boolean
+  email?: boolean
+  gender_identity?: boolean
+  pronouns?: boolean
+  emergency_name?: boolean
+  emergency_phone?: boolean
+  reason_for_care?: boolean
+  treatment_goals?: boolean
+  insurance_provider?: boolean
+  insurance_plan?: boolean
+  insurance_id?: boolean
 }, ExtArgs["result"]["client_profile"]>
 
 export type client_profileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -576,6 +860,18 @@ export type client_profileSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   updated_at?: boolean
   first_name?: boolean
   last_name?: boolean
+  dob?: boolean
+  phone?: boolean
+  email?: boolean
+  gender_identity?: boolean
+  pronouns?: boolean
+  emergency_name?: boolean
+  emergency_phone?: boolean
+  reason_for_care?: boolean
+  treatment_goals?: boolean
+  insurance_provider?: boolean
+  insurance_plan?: boolean
+  insurance_id?: boolean
 }, ExtArgs["result"]["client_profile"]>
 
 export type client_profileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -591,6 +887,18 @@ export type client_profileSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   updated_at?: boolean
   first_name?: boolean
   last_name?: boolean
+  dob?: boolean
+  phone?: boolean
+  email?: boolean
+  gender_identity?: boolean
+  pronouns?: boolean
+  emergency_name?: boolean
+  emergency_phone?: boolean
+  reason_for_care?: boolean
+  treatment_goals?: boolean
+  insurance_provider?: boolean
+  insurance_plan?: boolean
+  insurance_id?: boolean
 }, ExtArgs["result"]["client_profile"]>
 
 export type client_profileSelectScalar = {
@@ -606,9 +914,21 @@ export type client_profileSelectScalar = {
   updated_at?: boolean
   first_name?: boolean
   last_name?: boolean
+  dob?: boolean
+  phone?: boolean
+  email?: boolean
+  gender_identity?: boolean
+  pronouns?: boolean
+  emergency_name?: boolean
+  emergency_phone?: boolean
+  reason_for_care?: boolean
+  treatment_goals?: boolean
+  insurance_provider?: boolean
+  insurance_plan?: boolean
+  insurance_id?: boolean
 }
 
-export type client_profileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "communication_level" | "social_interaction_level" | "sensory_level" | "available_time_slots" | "location" | "preferred_language" | "preferred_modality" | "created_at" | "updated_at" | "first_name" | "last_name", ExtArgs["result"]["client_profile"]>
+export type client_profileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "communication_level" | "social_interaction_level" | "sensory_level" | "available_time_slots" | "location" | "preferred_language" | "preferred_modality" | "created_at" | "updated_at" | "first_name" | "last_name" | "dob" | "phone" | "email" | "gender_identity" | "pronouns" | "emergency_name" | "emergency_phone" | "reason_for_care" | "treatment_goals" | "insurance_provider" | "insurance_plan" | "insurance_id", ExtArgs["result"]["client_profile"]>
 
 export type $client_profilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "client_profile"
@@ -626,6 +946,18 @@ export type $client_profilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     updated_at: Date
     first_name: string
     last_name: string
+    dob: Date | null
+    phone: string | null
+    email: string | null
+    gender_identity: string | null
+    pronouns: string | null
+    emergency_name: string | null
+    emergency_phone: string | null
+    reason_for_care: string | null
+    treatment_goals: string | null
+    insurance_provider: string | null
+    insurance_plan: string | null
+    insurance_id: string | null
   }, ExtArgs["result"]["client_profile"]>
   composites: {}
 }
@@ -1061,6 +1393,18 @@ export interface client_profileFieldRefs {
   readonly updated_at: Prisma.FieldRef<"client_profile", 'DateTime'>
   readonly first_name: Prisma.FieldRef<"client_profile", 'String'>
   readonly last_name: Prisma.FieldRef<"client_profile", 'String'>
+  readonly dob: Prisma.FieldRef<"client_profile", 'DateTime'>
+  readonly phone: Prisma.FieldRef<"client_profile", 'String'>
+  readonly email: Prisma.FieldRef<"client_profile", 'String'>
+  readonly gender_identity: Prisma.FieldRef<"client_profile", 'String'>
+  readonly pronouns: Prisma.FieldRef<"client_profile", 'String'>
+  readonly emergency_name: Prisma.FieldRef<"client_profile", 'String'>
+  readonly emergency_phone: Prisma.FieldRef<"client_profile", 'String'>
+  readonly reason_for_care: Prisma.FieldRef<"client_profile", 'String'>
+  readonly treatment_goals: Prisma.FieldRef<"client_profile", 'String'>
+  readonly insurance_provider: Prisma.FieldRef<"client_profile", 'String'>
+  readonly insurance_plan: Prisma.FieldRef<"client_profile", 'String'>
+  readonly insurance_id: Prisma.FieldRef<"client_profile", 'String'>
 }
     
 

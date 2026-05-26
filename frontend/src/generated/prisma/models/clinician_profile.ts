@@ -445,10 +445,6 @@ export type clinician_profileCreatepreferred_modalityInput = {
   set: $Enums.modality_type[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type clinician_profileUpdatespecialtiesInput = {
   set?: string[]
   push?: string | string[]

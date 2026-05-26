@@ -604,7 +604,19 @@ export const Client_profileScalarFieldEnum = {
   created_at: 'created_at',
   updated_at: 'updated_at',
   first_name: 'first_name',
-  last_name: 'last_name'
+  last_name: 'last_name',
+  dob: 'dob',
+  phone: 'phone',
+  email: 'email',
+  gender_identity: 'gender_identity',
+  pronouns: 'pronouns',
+  emergency_name: 'emergency_name',
+  emergency_phone: 'emergency_phone',
+  reason_for_care: 'reason_for_care',
+  treatment_goals: 'treatment_goals',
+  insurance_provider: 'insurance_provider',
+  insurance_plan: 'insurance_plan',
+  insurance_id: 'insurance_id'
 } as const
 
 export type Client_profileScalarFieldEnum = (typeof Client_profileScalarFieldEnum)[keyof typeof Client_profileScalarFieldEnum]

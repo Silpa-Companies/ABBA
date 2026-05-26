@@ -28,6 +28,19 @@ model client_profile {
   updated_at               DateTime      @default(now()) @db.Timestamptz(6)
   first_name               String        @default("")
   last_name                String        @default("")
+  // Fields needed for the new Intake Form UI
+  dob                       DateTime?   @db.Date
+  phone                     String?
+  email                     String?
+  gender_identity           String?
+  pronouns                  String?
+  emergency_name            String?
+  emergency_phone           String?
+  reason_for_care           String?
+  treatment_goals           String?
+  insurance_provider        String?
+  insurance_plan            String?
+  insurance_id              String?
 }
 
 model clinician_profile {
