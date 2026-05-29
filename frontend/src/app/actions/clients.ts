@@ -1,7 +1,6 @@
 "use server";
 
-import { PrismaClient, PatientStatus } from "@/generated/prisma/client";
-import { modality_type } from "@/generated/prisma/enums";
+import { PrismaClient, PatientStatus, modality_type } from "@/generated/prisma";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { revalidatePath } from "next/cache";
@@ -19,6 +18,19 @@ type ClientFormData = {
   status?: PatientStatus;
   dob?: Date;
   gender?: string;
+  phone?: string;
+  email?: string;
+  pronouns?: string;
+  reasonForCare?: string;
+  presentingIssues?: string[];
+  patientGoals?: string;
+  goalAreas?: string[];
+  telehealthLink?: string;
+  therapistGender?: string;
+  insuranceProvider?: string;
+  planType?: string;
+  memberId?: string;
+  availability?: string[];
 };
 
 type ActionResponse<T = unknown> = {
@@ -76,12 +88,25 @@ export async function createClientAction(
       data: {
         first_name: capitalizeName(formData.firstName),
         last_name: capitalizeName(formData.lastName),
-        location: formData.location,
-        preferred_language: formData.language,
-        preferred_modality: mapModality(formData.modality),
-        status: formData.status || PatientStatus.UNDER_REVIEW,
         dob: formData.dob,
+        phone: formData.phone,
+        email: formData.email,
         gender_identity: formData.gender,
+        pronouns: formData.pronouns,
+        reason_for_care: formData.reasonForCare,
+        presenting_issues: formData.presentingIssues,
+        treatment_goals: formData.patientGoals,
+        goal_areas: formData.goalAreas,
+        location: formData.location,
+        telehealth_link: formData.telehealthLink,
+        preferred_language: formData.language,
+        therapist_gender_pref: formData.therapistGender,
+        preferred_modality: mapModality(formData.modality),
+        availability_blocks: formData.availability,
+        insurance_provider: formData.insuranceProvider,
+        insurance_plan: formData.planType,
+        insurance_id: formData.memberId,
+        status: formData.status || PatientStatus.UNDER_REVIEW,
       },
     });
 
@@ -109,6 +134,19 @@ export async function getClientsAction() {
         location: true,
         preferred_language: true,
         preferred_modality: true,
+        phone: true,
+        email: true,
+        pronouns: true,
+        reason_for_care: true,
+        presenting_issues: true,
+        treatment_goals: true,
+        goal_areas: true,
+        telehealth_link: true,
+        therapist_gender_pref: true,
+        availability_blocks: true,
+        insurance_provider: true,
+        insurance_plan: true,
+        insurance_id: true,
       },
     });
   } catch (error) {
@@ -131,12 +169,25 @@ export async function updateClientAction(
         last_name: formData.lastName
           ? capitalizeName(formData.lastName)
           : undefined,
-        location: formData.location,
-        preferred_language: formData.language,
-        preferred_modality: mapModality(formData.modality),
-        status: formData.status,
         dob: formData.dob,
+        phone: formData.phone,
+        email: formData.email,
         gender_identity: formData.gender,
+        pronouns: formData.pronouns,
+        reason_for_care: formData.reasonForCare,
+        presenting_issues: formData.presentingIssues,
+        treatment_goals: formData.patientGoals,
+        goal_areas: formData.goalAreas,
+        location: formData.location,
+        telehealth_link: formData.telehealthLink,
+        preferred_language: formData.language,
+        therapist_gender_pref: formData.therapistGender,
+        preferred_modality: mapModality(formData.modality),
+        availability_blocks: formData.availability,
+        insurance_provider: formData.insuranceProvider,
+        insurance_plan: formData.planType,
+        insurance_id: formData.memberId,
+        status: formData.status,
         updated_at: new Date(),
       },
     });

@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { client_profileModel as client_profile } from "@/generated/prisma/models/client_profile";
+import type { client_profile } from "@/generated/prisma";
 
 export type ClientWithDisplayFields = client_profile & {
   clinician_name?: string | null;

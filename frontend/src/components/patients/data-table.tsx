@@ -64,9 +64,8 @@ export function DataTable<TData extends ClientWithDisplayFields, TValue>({
         setIsModalOpen(true);
       },
       onView: (patient: TData) => {
-        setModalPatient(patient);
-        setModalMode("view");
-        setIsModalOpen(true);
+        // THE FIX: Instead of opening the modal, route to our new dynamic page!
+        router.push(`/patients/${patient.id}`);
       },
       onDelete: (id: string) => {
         setSingleDeleteId(id);

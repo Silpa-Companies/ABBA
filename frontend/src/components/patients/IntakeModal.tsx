@@ -34,8 +34,9 @@ import {
 import { cn } from "@/lib/utils";
 
 import { createClientAction, updateClientAction } from "@/app/actions/clients";
-import { PatientStatus } from "@/generated/prisma/enums";
+import { PatientStatus } from "@/generated/prisma";
 import type { ClientWithDisplayFields } from "@/components/patients/columns";
+import AddressAutocomplete from "@/components/patients/AddressAutocomplete";
 
 const STEPS = [
   { id: 1, title: "Demographics" },
@@ -94,17 +95,31 @@ export default function IntakeModal({
         if ((mode === "view" || mode === "edit") && patient) {
           setCurrentStep(mode === "view" ? 4 : 1);
           setFormData({
-            ...INITIAL_FORM_STATE,
             firstName: patient.first_name || "",
             lastName: patient.last_name || "",
             dob: patient.dob ? new Date(patient.dob) : undefined,
+            phone: patient.phone || "",
+            email: patient.email || "",
             gender: patient.gender_identity || "",
-            location: patient.location || "",
-            language: patient.preferred_language || "",
+            pronouns: patient.pronouns || "",
+            reasonForCare: patient.reason_for_care || "",
+            presentingIssues: patient.presenting_issues || [],
+            patientGoals: patient.treatment_goals || "",
+            goalAreas: patient.goal_areas || [],
             modality:
               patient.preferred_modality === "in_person"
                 ? "In-Person"
-                : "Telehealth",
+                : patient.preferred_modality === "hybrid"
+                  ? "Hybrid"
+                  : "Telehealth",
+            location: patient.location || "",
+            telehealthLink: patient.telehealth_link || "",
+            language: patient.preferred_language || "",
+            therapistGender: patient.therapist_gender_pref || "",
+            insuranceProvider: patient.insurance_provider || "",
+            planType: patient.insurance_plan || "",
+            memberId: patient.insurance_id || "",
+            availability: patient.availability_blocks || [],
           });
         } else {
           setCurrentStep(1);
@@ -141,11 +156,24 @@ export default function IntakeModal({
     const data = {
       firstName: formData.firstName,
       lastName: formData.lastName,
-      location: formData.location,
-      language: formData.language,
-      modality: formData.modality,
       dob: formData.dob,
+      phone: formData.phone,
+      email: formData.email,
       gender: formData.gender,
+      pronouns: formData.pronouns,
+      reasonForCare: formData.reasonForCare,
+      presentingIssues: formData.presentingIssues,
+      patientGoals: formData.patientGoals,
+      goalAreas: formData.goalAreas,
+      modality: formData.modality,
+      location: formData.location,
+      telehealthLink: formData.telehealthLink,
+      language: formData.language,
+      therapistGender: formData.therapistGender,
+      insuranceProvider: formData.insuranceProvider,
+      planType: formData.planType,
+      memberId: formData.memberId,
+      availability: formData.availability,
       status,
     };
 
@@ -276,6 +304,21 @@ export default function IntakeModal({
                     setFormData({ ...formData, email: e.target.value })
                   }
                   className="bg-zinc-50 border-zinc-200"
+                  disabled={mode === "view"}
+                />
+              </div>
+              {/* Address Autocomplete Field */}
+              <div className="space-y-1.5 md:col-span-2">
+                {" "}
+                {/* Spans full width! */}
+                <label className="text-sm font-medium text-gray-700">
+                  Home Address
+                </label>
+                <AddressAutocomplete
+                  value={formData.location || ""}
+                  onChange={(newAddress) =>
+                    setFormData({ ...formData, location: newAddress })
+                  }
                   disabled={mode === "view"}
                 />
               </div>
@@ -420,17 +463,17 @@ export default function IntakeModal({
               </div>
             </div>
             {/* Validated Screening Tools / Insurance Section */}
-            <div className="space-y-5 rounded-lg border border-gray-200 p-5">
+            <div className="space-y-5 rounded-lg border border-zinc-200 p-6 bg-white">
               {/* Header */}
               <div className="flex items-start gap-3">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-gray-100">
-                  <Shield className="h-4 w-4 text-gray-900" />
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-zinc-100">
+                  <Shield className="h-4 w-4 text-zinc-900" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">
+                  <h3 className="font-semibold text-zinc-900">
                     Validated Screening Tools
                   </h3>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-zinc-500">
                     Used to verify in-network clinician availability.
                   </p>
                 </div>
@@ -439,7 +482,7 @@ export default function IntakeModal({
               {/* Input Grid */}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wide text-gray-900">
+                  <label className="text-xs font-bold uppercase tracking-wide text-zinc-900">
                     Insurance Provider
                   </label>
                   <Input
@@ -450,11 +493,12 @@ export default function IntakeModal({
                         insuranceProvider: e.target.value,
                       })
                     }
+                    className="bg-zinc-50 border-zinc-200"
                     disabled={mode === "view"}
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wide text-gray-900">
+                  <label className="text-xs font-bold uppercase tracking-wide text-zinc-900">
                     Plan Type
                   </label>
                   <Input
@@ -462,11 +506,12 @@ export default function IntakeModal({
                     onChange={(e) =>
                       setFormData({ ...formData, planType: e.target.value })
                     }
+                    className="bg-zinc-50 border-zinc-200"
                     disabled={mode === "view"}
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wide text-gray-900">
+                  <label className="text-xs font-bold uppercase tracking-wide text-zinc-900">
                     Member ID
                   </label>
                   <Input
@@ -474,14 +519,15 @@ export default function IntakeModal({
                     onChange={(e) =>
                       setFormData({ ...formData, memberId: e.target.value })
                     }
+                    className="bg-zinc-50 border-zinc-200"
                     disabled={mode === "view"}
                   />
                 </div>
               </div>
 
               {/* Info Callout */}
-              <div className="flex items-start gap-3 rounded-md bg-gray-50 p-4 text-sm text-gray-500 border border-gray-100">
-                <Info className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+              <div className="flex items-start gap-3 rounded-md bg-zinc-50 p-4 text-sm text-zinc-500 border border-zinc-100">
+                <Info className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400" />
                 <p>
                   We verify in-network availability before matching. Patients
                   will only be matched with clinicians covered under their plan.

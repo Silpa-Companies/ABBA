@@ -1,13 +1,6 @@
-// This sends the client to the frontend for Next.js to use
-generator client_frontend {
-  provider = "prisma-client"
-  output   = "../../frontend/src/generated/prisma" 
-}
-
-// This generates a standard client in the backend for your seed script
-generator client_backend {
-  provider = "prisma-client"
-  output   = "./generated/client"
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../frontend/src/generated/prisma"
 }
 
 datasource db {
