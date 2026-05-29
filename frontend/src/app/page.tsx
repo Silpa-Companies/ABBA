@@ -1,10 +1,15 @@
 import { DataTable } from "@/components/patients/data-table";
 import { getClientsAction } from "@/app/actions/clients";
-import { columns } from "@/components/patients/columns";
+import {
+  columns,
+  type ClientWithDisplayFields,
+} from "@/components/patients/columns";
 
 export default async function PatientsPage() {
   // R in CRUD: Fetching the data securely on the server
-  const clients = await getClientsAction();
+  // THE FIX: We cast to a shared UI-safe type to satisfy the DataTable generics
+  const clients =
+    (await getClientsAction()) as unknown as ClientWithDisplayFields[];
 
   return (
     <div className="flex flex-col h-full max-w-[1400px] mx-auto">
@@ -19,7 +24,7 @@ export default async function PatientsPage() {
 
       {/* We handed all the toolbar controls over to DataTable, so we just render the table here! */}
       <div className="bg-white rounded-lg shadow-sm">
-        <DataTable columns={columns as any} data={clients} />
+        <DataTable columns={columns} data={clients} />
       </div>
     </div>
   );

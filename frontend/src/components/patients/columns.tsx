@@ -2,9 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, Edit, Eye, Trash } from "lucide-react";
+import { formatDistanceToNow, format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { formatDistanceToNow, format } from "date-fns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,22 +12,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import type { client_profileModel as client_profile } from "@/generated/prisma/models/client_profile";
 
-// 1. New Status Badge matching the mockup
+export type ClientWithDisplayFields = client_profile & {
+  clinician_name?: string | null;
+};
+
 const StatusBadge = ({ status }: { status: string | null | undefined }) => {
-  // Fallback to "UNDER_REVIEW" if status is missing in the DB
   const safeStatus = status || "UNDER_REVIEW";
 
-  // Configuration for both display labels and backend enum values
   const config: Record<string, string> = {
-    // Enum values (Backend)
     MATCHED: "bg-zinc-950 text-white border-zinc-950",
     UNDER_REVIEW: "bg-amber-50 text-amber-700 border-amber-200",
     DRAFT: "bg-zinc-50 text-zinc-600 border-zinc-200",
     ACTIVE: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    // Display values (Frontend fallbacks)
     Matched: "bg-zinc-950 text-white border-zinc-950",
     "Under Review": "bg-amber-50 text-amber-700 border-amber-200",
     Draft: "bg-zinc-50 text-zinc-600 border-zinc-200",
@@ -48,7 +46,6 @@ const StatusBadge = ({ status }: { status: string | null | undefined }) => {
   const badgeStyle = config[safeStatus] || config["DRAFT"];
   const dotStyle = dotConfig[safeStatus] || dotConfig["DRAFT"];
 
-  // Prettify the status for display (e.g., UNDER_REVIEW -> Under Review)
   const displayStatus = safeStatus
     .replace(/_/g, " ")
     .toLowerCase()
@@ -69,7 +66,7 @@ const getInitials = (firstName: string | null, lastName: string | null) => {
   return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`.toUpperCase();
 };
 
-export const columns: ColumnDef<client_profile>[] = [
+export const columns: ColumnDef<ClientWithDisplayFields>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -102,9 +99,7 @@ export const columns: ColumnDef<client_profile>[] = [
       const rawDob = client.dob;
       const rawGender = client.gender_identity;
 
-      const dobStr = rawDob
-        ? format(new Date(rawDob), "dd MMM yyyy")
-        : "Unknown DOB";
+      const dobStr = rawDob ? format(new Date(rawDob), "dd MMM yyyy") : "—";
       const genderStr = rawGender ? rawGender.charAt(0).toUpperCase() : "U";
 
       return (
@@ -112,7 +107,7 @@ export const columns: ColumnDef<client_profile>[] = [
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zinc-700 text-xs font-medium text-white">
             {getInitials(client.first_name, client.last_name)}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col text-left">
             <span className="font-semibold text-zinc-900 text-sm">
               {client.first_name} {client.last_name}
             </span>
@@ -192,11 +187,10 @@ export const columns: ColumnDef<client_profile>[] = [
     id: "actions",
     cell: ({ row, table }) => {
       const patient = row.original;
-
       const meta = table.options.meta as
         | {
-            onEdit: (patient: client_profile) => void;
-            onView: (patient: client_profile) => void;
+            onEdit: (patient: ClientWithDisplayFields) => void;
+            onView: (patient: ClientWithDisplayFields) => void;
             onDelete: (id: string) => void;
           }
         | undefined;

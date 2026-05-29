@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   X,
@@ -18,13 +18,13 @@ import {
   Monitor,
   Link as LinkIcon,
   Edit2,
+  Plus,
 } from "lucide-react";
+import { format } from "date-fns";
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import { createClientAction, updateClientAction } from "@/app/actions/clients";
-
-import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -33,8 +33,9 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
-import type { client_profileModel as client_profile } from "@/generated/prisma/models/client_profile";
+import { createClientAction, updateClientAction } from "@/app/actions/clients";
 import { PatientStatus } from "@/generated/prisma/enums";
+import type { ClientWithDisplayFields } from "@/components/patients/columns";
 
 const STEPS = [
   { id: 1, title: "Demographics" },
@@ -47,7 +48,28 @@ const ISSUES = ["Anxiety", "Depression", "Trauma", "Burnout", "Sleep Issues"];
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const PERIODS = ["Morning", "Afternoon", "Evening"];
 
-const DRAFT_KEY = "new_patient_intake_draft";
+const INITIAL_FORM_STATE = {
+  firstName: "",
+  lastName: "",
+  dob: undefined as Date | undefined,
+  phone: "",
+  email: "",
+  gender: "",
+  pronouns: "",
+  reasonForCare: "",
+  presentingIssues: [] as string[],
+  patientGoals: "",
+  goalAreas: [] as string[],
+  modality: "Telehealth" as "Telehealth" | "In-Person" | "Hybrid",
+  location: "",
+  telehealthLink: "",
+  language: "",
+  therapistGender: "",
+  insuranceProvider: "",
+  planType: "",
+  memberId: "",
+  availability: [] as string[],
+};
 
 export default function IntakeModal({
   patient = null,
@@ -55,7 +77,7 @@ export default function IntakeModal({
   open = false,
   onOpenChange,
 }: {
-  patient?: client_profile | null;
+  patient?: ClientWithDisplayFields | null;
   mode?: "create" | "edit" | "view";
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -64,81 +86,31 @@ export default function IntakeModal({
 
   const [currentStep, setCurrentStep] = useState(1);
   const [isSaving, setIsSaving] = useState(false);
-
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    dob: undefined as Date | undefined,
-    phone: "",
-    email: "",
-    gender: "",
-    pronouns: "",
-    reasonForCare: "",
-    presentingIssues: [] as string[],
-    patientGoals: "",
-    goalAreas: [] as string[],
-    modality: "Telehealth",
-    location: "",
-    telehealthLink: "",
-    language: "",
-    therapistGender: "",
-    insuranceProvider: "",
-    planType: "",
-    memberId: "",
-    availability: [] as string[],
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
 
   useEffect(() => {
     if (open) {
-      // THE FIX: We use setTimeout to push the state update to the next tick,
-      // avoiding React's synchronous cascading render warning entirely.
       const timer = setTimeout(() => {
-        if (mode === "view" || mode === "edit") {
+        if ((mode === "view" || mode === "edit") && patient) {
           setCurrentStep(mode === "view" ? 4 : 1);
-          if (patient) {
-            setFormData((prev) => ({
-              ...prev,
-              firstName: patient.first_name || "",
-              lastName: patient.last_name || "",
-              dob: patient.dob ? new Date(patient.dob) : undefined,
-              gender: patient.gender_identity || "",
-              location: patient.location || "",
-              language: patient.preferred_language || "",
-              modality:
-                patient.preferred_modality === "in_person"
-                  ? "In-Person"
-                  : "Telehealth",
-            }));
-          }
-        } else {
-          // Create Mode
-          setCurrentStep(1);
           setFormData({
-            firstName: "",
-            lastName: "",
-            dob: undefined,
-            phone: "",
-            email: "",
-            gender: "",
-            pronouns: "",
-            reasonForCare: "",
-            presentingIssues: [],
-            patientGoals: "",
-            goalAreas: [],
-            modality: "Telehealth",
-            location: "",
-            telehealthLink: "",
-            language: "",
-            therapistGender: "",
-            insuranceProvider: "",
-            planType: "",
-            memberId: "",
-            availability: [],
+            ...INITIAL_FORM_STATE,
+            firstName: patient.first_name || "",
+            lastName: patient.last_name || "",
+            dob: patient.dob ? new Date(patient.dob) : undefined,
+            gender: patient.gender_identity || "",
+            location: patient.location || "",
+            language: patient.preferred_language || "",
+            modality:
+              patient.preferred_modality === "in_person"
+                ? "In-Person"
+                : "Telehealth",
           });
+        } else {
+          setCurrentStep(1);
+          setFormData(INITIAL_FORM_STATE);
         }
       }, 0);
-
-      // Clean up the timer to prevent memory leaks
       return () => clearTimeout(timer);
     }
   }, [open, mode, patient]);
@@ -151,84 +123,50 @@ export default function IntakeModal({
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  const toggleArrayItem = (key: keyof typeof formData, item: string) => {
-    setFormData((prev) => {
-      const currentArray = prev[key] as string[];
-      if (currentArray.includes(item)) {
-        return { ...prev, [key]: currentArray.filter((i) => i !== item) };
-      }
-      return { ...prev, [key]: [...currentArray, item] };
-    });
-  };
+  const toggleArrayItem = useCallback(
+    (key: keyof typeof formData, item: string) => {
+      setFormData((prev) => {
+        const currentArray = prev[key] as string[];
+        const newArray = currentArray.includes(item)
+          ? currentArray.filter((i) => i !== item)
+          : [...currentArray, item];
+        return { ...prev, [key]: newArray };
+      });
+    },
+    [],
+  );
 
-  // NEW: Save Draft Logic
-  const handleSaveDraft = async () => {
+  const handleSaveAction = async (status: PatientStatus) => {
     setIsSaving(true);
-
-    // Call the database, but explicitly mark it as a draft
-    const response = await createClientAction({
+    const data = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       location: formData.location,
       language: formData.language,
       modality: formData.modality,
-      status: PatientStatus.DRAFT,
       dob: formData.dob,
-      gender: formData.gender, // <--- The magic word
-    });
+      gender: formData.gender,
+      status,
+    };
+
+    const response =
+      mode === "create" || status === PatientStatus.DRAFT
+        ? await createClientAction(data)
+        : await updateClientAction(patient!.id, data);
 
     if (response.success) {
-      toast.success("Draft saved to database!");
+      toast.success(
+        status === PatientStatus.DRAFT
+          ? "Draft saved successfully!"
+          : mode === "create"
+            ? "Profile created successfully!"
+            : "Profile updated successfully!",
+      );
       onOpenChange(false);
-      router.refresh(); // This will make it instantly appear in your table!
+      router.refresh();
     } else {
-      toast.error("Failed to save draft.");
+      toast.error(response.error || "Failed to save profile.");
     }
-
-    setIsSaving(false);
-  };
-  const handleSave = async () => {
-    setIsSaving(true);
-    if (mode === "create") {
-      const response = await createClientAction({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        status: PatientStatus.UNDER_REVIEW,
-        location: formData.location,
-        language: formData.language,
-        modality: formData.modality,
-        dob: formData.dob,
-        gender: formData.gender,
-      });
-
-      if (response.success) {
-        localStorage.removeItem(DRAFT_KEY);
-        toast.success("Profile created successfully!"); // NEW
-        onOpenChange(false);
-        router.refresh();
-      } else {
-        toast.error("Failed to create patient profile."); // NEW
-      }
-    } else if (mode === "edit" && patient) {
-      const response = await updateClientAction(patient.id, {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        location: formData.location,
-        language: formData.language,
-        modality: formData.modality,
-        dob: formData.dob,
-        gender: formData.gender,
-      });
-
-      if (response.success) {
-        toast.success("Profile updated successfully!"); // NEW
-        onOpenChange(false);
-        router.refresh();
-      } else {
-        toast.error("Failed to update patient profile."); // NEW
-      }
-    }
-
     setIsSaving(false);
   };
 
@@ -280,7 +218,7 @@ export default function IntakeModal({
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant={"outline"}
+                      variant="outline"
                       disabled={mode === "view"}
                       className={cn(
                         "w-full justify-start text-left font-normal bg-zinc-50 border-zinc-200",
@@ -451,7 +389,7 @@ export default function IntakeModal({
                 </label>
                 <textarea
                   className="w-full bg-zinc-50 border border-zinc-200 rounded-md p-3 min-h-[80px] text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 disabled:opacity-75"
-                  placeholder='What does the patient hope to achieve? e.g., "I want to manage daily anxiety..."'
+                  placeholder="What does the patient hope to achieve?"
                   value={formData.patientGoals}
                   disabled={mode === "view"}
                   onChange={(e) =>
@@ -479,6 +417,76 @@ export default function IntakeModal({
                     </button>
                   ))}
                 </div>
+              </div>
+            </div>
+            {/* Validated Screening Tools / Insurance Section */}
+            <div className="space-y-5 rounded-lg border border-gray-200 p-5">
+              {/* Header */}
+              <div className="flex items-start gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-gray-100">
+                  <Shield className="h-4 w-4 text-gray-900" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">
+                    Validated Screening Tools
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    Used to verify in-network clinician availability.
+                  </p>
+                </div>
+              </div>
+
+              {/* Input Grid */}
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wide text-gray-900">
+                    Insurance Provider
+                  </label>
+                  <Input
+                    value={formData.insuranceProvider || ""}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        insuranceProvider: e.target.value,
+                      })
+                    }
+                    disabled={mode === "view"}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wide text-gray-900">
+                    Plan Type
+                  </label>
+                  <Input
+                    value={formData.planType || ""}
+                    onChange={(e) =>
+                      setFormData({ ...formData, planType: e.target.value })
+                    }
+                    disabled={mode === "view"}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wide text-gray-900">
+                    Member ID
+                  </label>
+                  <Input
+                    value={formData.memberId || ""}
+                    onChange={(e) =>
+                      setFormData({ ...formData, memberId: e.target.value })
+                    }
+                    disabled={mode === "view"}
+                  />
+                </div>
+              </div>
+
+              {/* Info Callout */}
+              <div className="flex items-start gap-3 rounded-md bg-gray-50 p-4 text-sm text-gray-500 border border-gray-100">
+                <Info className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                <p>
+                  We verify in-network availability before matching. Patients
+                  will only be matched with clinicians covered under their plan.
+                  Self-pay options are available if preferred.
+                </p>
               </div>
             </div>
           </div>
@@ -521,8 +529,7 @@ export default function IntakeModal({
                     Telehealth
                   </h5>
                   <p className="text-xs text-zinc-500 leading-relaxed">
-                    Video or phone sessions from any location. Maximum
-                    flexibility for the patient.
+                    Video or phone sessions from any location.
                   </p>
                 </div>
 
@@ -545,45 +552,40 @@ export default function IntakeModal({
                     In-Person
                   </h5>
                   <p className="text-xs text-zinc-500 leading-relaxed">
-                    Face-to-face sessions at a clinic or office. Preferred for
-                    hands-on care.
+                    Face-to-face sessions at a clinic or office.
                   </p>
                 </div>
               </div>
 
-              {formData.modality === "Telehealth" ? (
-                <div className="space-y-1.5 pt-5 mt-5 border-t border-zinc-100">
-                  <label className="text-sm font-semibold text-zinc-900 flex items-center gap-1.5">
-                    <LinkIcon className="w-4 h-4 text-zinc-500" /> Link
-                  </label>
-                  <Input
-                    value={formData.telehealthLink}
-                    disabled={mode === "view"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        telehealthLink: e.target.value,
-                      })
-                    }
-                    className="bg-zinc-50 border-zinc-200"
-                  />
-                </div>
-              ) : (
-                <div className="space-y-1.5 pt-5 mt-5 border-t border-zinc-100">
-                  <label className="text-xs font-bold text-zinc-700 uppercase tracking-wider flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-zinc-500" /> Preferred
-                    Location or Zip Code
-                  </label>
-                  <Input
-                    value={formData.location}
-                    disabled={mode === "view"}
-                    onChange={(e) =>
-                      setFormData({ ...formData, location: e.target.value })
-                    }
-                    className="bg-zinc-50 border-zinc-200"
-                  />
-                </div>
-              )}
+              <div className="space-y-1.5 pt-5 mt-5 border-t border-zinc-100">
+                <label className="text-sm font-semibold text-zinc-900 flex items-center gap-1.5">
+                  {formData.modality === "Telehealth" ? (
+                    <LinkIcon className="w-4 h-4 text-zinc-500" />
+                  ) : (
+                    <MapPin className="w-4 h-4 text-zinc-500" />
+                  )}
+                  {formData.modality === "Telehealth"
+                    ? "Link"
+                    : "Preferred Location or Zip Code"}
+                </label>
+                <Input
+                  value={
+                    formData.modality === "Telehealth"
+                      ? formData.telehealthLink
+                      : formData.location
+                  }
+                  disabled={mode === "view"}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      [formData.modality === "Telehealth"
+                        ? "telehealthLink"
+                        : "location"]: e.target.value,
+                    })
+                  }
+                  className="bg-zinc-50 border-zinc-200"
+                />
+              </div>
             </div>
 
             <div className="border border-zinc-200 rounded-lg p-6 space-y-5 bg-white">
@@ -617,10 +619,7 @@ export default function IntakeModal({
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                    Therapist Gender Preference{" "}
-                    <span className="text-zinc-400 normal-case font-normal ml-1">
-                      Optional
-                    </span>
+                    Therapist Gender Preference
                   </label>
                   <Input
                     value={formData.therapistGender}
@@ -638,77 +637,6 @@ export default function IntakeModal({
             </div>
 
             <div className="border border-zinc-200 rounded-lg p-6 space-y-5 bg-white">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-zinc-100 rounded-md">
-                  <Shield className="w-5 h-5 text-zinc-700" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-zinc-900 text-sm">
-                    Validated Screening Tools
-                  </h4>
-                  <p className="text-xs text-zinc-500">
-                    Used to verify in-network clinician availability.
-                  </p>
-                </div>
-              </div>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                    Insurance Provider
-                  </label>
-                  <Input
-                    value={formData.insuranceProvider}
-                    disabled={mode === "view"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        insuranceProvider: e.target.value,
-                      })
-                    }
-                    className="bg-zinc-50 border-zinc-200"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                    Plan Type
-                  </label>
-                  <Input
-                    value={formData.planType}
-                    disabled={mode === "view"}
-                    onChange={(e) =>
-                      setFormData({ ...formData, planType: e.target.value })
-                    }
-                    className="bg-zinc-50 border-zinc-200"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider">
-                    Member ID
-                  </label>
-                  <Input
-                    value={formData.memberId}
-                    disabled={mode === "view"}
-                    onChange={(e) =>
-                      setFormData({ ...formData, memberId: e.target.value })
-                    }
-                    className="bg-zinc-50 border-zinc-200"
-                  />
-                </div>
-              </div>
-
-              <div className="bg-zinc-50 border border-zinc-200 rounded-md p-4 flex gap-3 mt-2">
-                <div className="text-zinc-400 mt-0.5">
-                  <Info className="w-4 h-4" />
-                </div>
-                <p className="text-sm text-zinc-500 leading-relaxed">
-                  We verify in-network availability before matching. Patients
-                  will only be matched with clinicians covered under their plan.
-                  Self-pay options are available if preferred.
-                </p>
-              </div>
-            </div>
-
-            <div className="border border-zinc-200 rounded-lg p-6 space-y-5 bg-white">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 bg-zinc-100 rounded-md">
                   <CalendarIcon className="w-5 h-5 text-zinc-700" />
@@ -718,8 +646,7 @@ export default function IntakeModal({
                     Weekly Availability Calendar
                   </h4>
                   <p className="text-xs text-zinc-500">
-                    Select day and time blocks suitable for therapist sessions
-                    (toggable cards.)
+                    Select suitable day and time blocks.
                   </p>
                 </div>
               </div>
@@ -756,12 +683,7 @@ export default function IntakeModal({
                                 onClick={() =>
                                   toggleArrayItem("availability", slotKey)
                                 }
-                                className={`w-full h-10 rounded-md transition-colors disabled:opacity-80 ${
-                                  isSelected
-                                    ? "bg-zinc-900 text-white"
-                                    : "bg-white hover:bg-zinc-100"
-                                }`}
-                                aria-label={`Select ${period} on ${day}`}
+                                className={`w-full h-10 rounded-md transition-colors ${isSelected ? "bg-zinc-900 text-white" : "bg-white hover:bg-zinc-100"}`}
                               />
                             </td>
                           );
@@ -782,12 +704,10 @@ export default function IntakeModal({
                 Review Patient Profile
               </h3>
               <p className="text-sm text-zinc-500 mb-6">
-                Please verify the information below before finalizing the
-                intake.
+                Please verify the information below.
               </p>
 
               <div className="space-y-8">
-                {/* 1. Demographics Summary */}
                 <div>
                   <div className="flex items-center justify-between border-b border-zinc-200 pb-2 mb-3">
                     <h4 className="font-semibold text-zinc-900 text-sm">
@@ -796,7 +716,7 @@ export default function IntakeModal({
                     {mode !== "view" && (
                       <button
                         onClick={() => setCurrentStep(1)}
-                        className="flex items-center text-xs font-medium text-zinc-500 hover:text-zinc-900 transition-colors"
+                        className="flex items-center text-xs font-medium text-zinc-500 hover:text-zinc-900"
                       >
                         <Edit2 className="w-3 h-3 mr-1" /> Edit
                       </button>
@@ -819,8 +739,7 @@ export default function IntakeModal({
                       <span className="text-zinc-500 block text-xs uppercase tracking-wider font-semibold mb-1">
                         Contact Info
                       </span>
-                      {formData.email || "No email"} •{" "}
-                      {formData.phone || "No phone"}
+                      {formData.email || "—"} • {formData.phone || "—"}
                     </div>
                     <div>
                       <span className="text-zinc-500 block text-xs uppercase tracking-wider font-semibold mb-1">
@@ -832,7 +751,6 @@ export default function IntakeModal({
                   </div>
                 </div>
 
-                {/* 2. Clinical Profile Summary */}
                 <div>
                   <div className="flex items-center justify-between border-b border-zinc-200 pb-2 mb-3">
                     <h4 className="font-semibold text-zinc-900 text-sm">
@@ -841,7 +759,7 @@ export default function IntakeModal({
                     {mode !== "view" && (
                       <button
                         onClick={() => setCurrentStep(2)}
-                        className="flex items-center text-xs font-medium text-zinc-500 hover:text-zinc-900 transition-colors"
+                        className="flex items-center text-xs font-medium text-zinc-500 hover:text-zinc-900"
                       >
                         <Edit2 className="w-3 h-3 mr-1" /> Edit
                       </button>
@@ -862,33 +780,18 @@ export default function IntakeModal({
                         ? formData.presentingIssues.join(", ")
                         : "—"}
                     </div>
-                    <div>
-                      <span className="text-zinc-500 block text-xs uppercase tracking-wider font-semibold mb-1">
-                        Patient&apos;s Goals
-                      </span>
-                      {formData.patientGoals || "—"}
-                    </div>
-                    <div>
-                      <span className="text-zinc-500 block text-xs uppercase tracking-wider font-semibold mb-1">
-                        Suggested Goal Areas
-                      </span>
-                      {formData.goalAreas.length > 0
-                        ? formData.goalAreas.join(", ")
-                        : "—"}
-                    </div>
                   </div>
                 </div>
 
-                {/* 3. Preferences Summary */}
                 <div>
                   <div className="flex items-center justify-between border-b border-zinc-200 pb-2 mb-3">
                     <h4 className="font-semibold text-zinc-900 text-sm">
-                      3. Preferences & Constraints
+                      3. Preferences
                     </h4>
                     {mode !== "view" && (
                       <button
                         onClick={() => setCurrentStep(3)}
-                        className="flex items-center text-xs font-medium text-zinc-500 hover:text-zinc-900 transition-colors"
+                        className="flex items-center text-xs font-medium text-zinc-500 hover:text-zinc-900"
                       >
                         <Edit2 className="w-3 h-3 mr-1" /> Edit
                       </button>
@@ -903,26 +806,9 @@ export default function IntakeModal({
                     </div>
                     <div>
                       <span className="text-zinc-500 block text-xs uppercase tracking-wider font-semibold mb-1">
-                        {formData.modality === "Telehealth"
-                          ? "Telehealth Link"
-                          : "Preferred Location"}
-                      </span>
-                      {formData.modality === "Telehealth"
-                        ? formData.telehealthLink || "—"
-                        : formData.location || "—"}
-                    </div>
-                    <div>
-                      <span className="text-zinc-500 block text-xs uppercase tracking-wider font-semibold mb-1">
                         Language
                       </span>
                       {formData.language || "—"}
-                    </div>
-                    <div>
-                      <span className="text-zinc-500 block text-xs uppercase tracking-wider font-semibold mb-1">
-                        Insurance
-                      </span>
-                      {formData.insuranceProvider || "Self-Pay"}{" "}
-                      {formData.planType ? `(${formData.planType})` : ""}
                     </div>
                     <div className="col-span-2">
                       <span className="text-zinc-500 block text-xs uppercase tracking-wider font-semibold mb-1">
@@ -958,7 +844,7 @@ export default function IntakeModal({
 
   return (
     <div className="fixed inset-0 bg-zinc-900/40 flex items-start justify-center z-50 backdrop-blur-sm overflow-y-auto py-10">
-      <div className="bg-white rounded-xl w-full max-w-4xl shadow-2xl relative flex flex-col my-auto">
+      <div className="bg-white rounded-xl w-full max-w-4xl shadow-2xl relative flex flex-col my-auto border border-zinc-200">
         <div className="p-8 border-b border-zinc-100">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -994,13 +880,7 @@ export default function IntakeModal({
                   className="flex flex-col items-center gap-2 bg-white px-2"
                 >
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${
-                      isActive
-                        ? "bg-zinc-900 text-white"
-                        : isPassed
-                          ? "bg-zinc-900 text-white"
-                          : "bg-zinc-100 text-zinc-400 border border-zinc-200"
-                    }`}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${isActive || isPassed ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-400 border border-zinc-200"}`}
                   >
                     {step.id}
                   </div>
@@ -1044,8 +924,9 @@ export default function IntakeModal({
               {mode === "create" && (
                 <Button
                   variant="outline"
-                  onClick={handleSaveDraft}
-                  className="bg-white text-zinc-700 hover:bg-zinc-100 transition-colors"
+                  onClick={() => handleSaveAction(PatientStatus.DRAFT)}
+                  disabled={isSaving}
+                  className="bg-white text-zinc-700 hover:bg-zinc-50"
                 >
                   <Save className="w-4 h-4 mr-2" /> Save Draft
                 </Button>
@@ -1055,7 +936,7 @@ export default function IntakeModal({
                 <Button
                   variant="outline"
                   onClick={() => onOpenChange(false)}
-                  className="bg-white text-zinc-700 transition-colors hover:bg-zinc-100"
+                  className="bg-white text-zinc-700"
                 >
                   Cancel
                 </Button>
@@ -1077,15 +958,19 @@ export default function IntakeModal({
                 </Button>
               ) : (
                 <Button
-                  onClick={handleSave}
+                  onClick={() => handleSaveAction(PatientStatus.UNDER_REVIEW)}
                   disabled={isSaving}
                   className="bg-zinc-900 text-white hover:bg-zinc-800"
                 >
-                  {isSaving
-                    ? "Saving..."
-                    : mode === "edit"
-                      ? "Save Changes"
-                      : "Complete Profile"}
+                  {isSaving ? (
+                    "Saving..."
+                  ) : mode === "edit" ? (
+                    "Save Changes"
+                  ) : (
+                    <>
+                      <Plus className="w-4 h-4 mr-2" /> Complete Profile
+                    </>
+                  )}
                 </Button>
               )}
             </div>
