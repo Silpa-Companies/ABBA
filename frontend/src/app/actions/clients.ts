@@ -1,15 +1,18 @@
 "use server";
 
-import { PrismaClient } from "@/generated/prisma/client";
+import { PrismaClient, PatientStatus } from "@/generated/prisma/client";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 type ClientFormData = {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   location?: string;
   language?: string;
-  modality: string;
+  modality?: string;
+  status?: PatientStatus;
+  dob?: Date;
+  gender?: string;
 };
 
 const connectionString = process.env.DATABASE_URL;
@@ -37,37 +40,40 @@ if (globalForPrisma.prisma) {
   }
 }
 
+function capitalizeName(name?: string) {
+  if (!name) return ""; // Return empty string if undefined
+
+  const trimmedName = name.trim(); // Removes accidental spaces at the start/end
+  return trimmedName.charAt(0).toUpperCase() + trimmedName.slice(1);
+}
+
 // ==========================================
 // CREATE (C) - Add a new client
 // ==========================================
 export async function createClientAction(formData: ClientFormData) {
   try {
-    // 1. Strictly type and map the modality enum
-    let mappedModality: "telehealth" | "in_person" | "hybrid" = "telehealth"; // Default fallback
-
+    let mappedModality: "telehealth" | "in_person" | "hybrid" | undefined =
+      undefined;
     if (formData.modality === "Telehealth") mappedModality = "telehealth";
     else if (formData.modality === "In-Person") mappedModality = "in_person";
     else if (formData.modality === "Hybrid") mappedModality = "hybrid";
 
-    // 2. Insert into the database
     const newClient = await prisma.client_profile.create({
       data: {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        location: formData.location || "",
-        preferred_language: formData.language || "English",
+        first_name: capitalizeName(formData.firstName),
+        last_name: capitalizeName(formData.lastName),
+        location: formData.location,
+        preferred_language: formData.language,
         preferred_modality: mappedModality,
-
-        // REQUIRED BY SCHEMA: Default integers so the database doesn't crash
-        communication_level: 3,
-        social_interaction_level: 3,
-        sensory_level: 3,
+        status: formData.status || PatientStatus.UNDER_REVIEW,
+        dob: formData.dob,
+        gender_identity: formData.gender,
       },
     });
 
     return { success: true, data: newClient };
   } catch (error) {
-    console.error("Failed to insert client:", error);
+    console.error("Failed to create client:", error);
     return { success: false, error: "Database insertion failed" };
   }
 }
@@ -78,10 +84,23 @@ export async function createClientAction(formData: ClientFormData) {
 
 export async function getClientsAction() {
   try {
-    const clients = await prisma.client_profile.findMany({
-      orderBy: { created_at: "desc" },
+    const patients = await prisma.client_profile.findMany({
+      orderBy: {
+        updated_at: "desc",
+      },
+      select: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        status: true,
+        updated_at: true,
+        // IF YOU HAVE A SELECT BLOCK, ADD THESE:
+        dob: true,
+        gender_identity: true,
+        clinician_name: true,
+      },
     });
-    return clients;
+    return patients;
   } catch (error) {
     console.error("Failed to fetch clients:", error);
     return [];
@@ -108,11 +127,14 @@ export async function updateClientAction(
     const updatedClient = await prisma.client_profile.update({
       where: { id: id },
       data: {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
+        first_name: capitalizeName(formData.firstName),
+        last_name: capitalizeName(formData.lastName),
         location: formData.location,
         preferred_language: formData.language,
         preferred_modality: mappedModality,
+        status: formData.status,
+        dob: formData.dob,
+        gender_identity: formData.gender,
         updated_at: new Date(),
       },
     });

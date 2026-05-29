@@ -14,33 +14,68 @@ datasource db {
   provider = "postgresql"
 }
 
+enum PatientStatus {
+  DRAFT
+  UNDER_REVIEW
+  MATCHED
+  ACTIVE
+}
+
+enum modality_type {
+  in_person
+  telehealth
+  hybrid
+}
+
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model client_profile {
   id                       String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  communication_level      Int           @db.SmallInt
-  social_interaction_level Int           @db.SmallInt
-  sensory_level            Int           @db.SmallInt
-  available_time_slots     DateTime[]    @default([]) @db.Timestamptz
-  location                 String        @default("")
-  preferred_language       String        @default("English")
+  status                   PatientStatus @default(DRAFT)
+
+  // Demographics
+  first_name               String?       @default("")
+  last_name                String?       @default("")
+  dob                      DateTime?     @db.Date
+  phone                    String?
+  email                    String?
+  gender_identity          String?
+  pronouns                 String?
+  emergency_name           String?
+  emergency_phone          String?
+
+  // Clinical Profile
+  reason_for_care          String?
+  presenting_issues        String[]      @default([])
+  treatment_goals          String?
+  goal_areas               String[]      @default([])
+
+  // Profile Metrics (Made optional for drafts)
+  communication_level      Int?          @db.SmallInt
+  social_interaction_level Int?          @db.SmallInt
+  sensory_level            Int?          @db.SmallInt
+
+  // Preferences & Logistics
+  location                 String?       @default("")
+  telehealth_link          String?
+  preferred_language       String?       @default("English")
+  therapist_gender_pref    String?
   preferred_modality       modality_type @default(hybrid)
+  available_time_slots     DateTime[]    @default([]) @db.Timestamptz
+  availability_blocks      String[]      @default([])
+
+  // Insurance
+  insurance_provider       String?
+  insurance_plan           String?
+  insurance_id             String?
+
+  // Meta & Relations
+  clinician_name           String?       // Stored temporarily for UI display
   created_at               DateTime      @default(now()) @db.Timestamptz(6)
   updated_at               DateTime      @default(now()) @db.Timestamptz(6)
-  first_name               String        @default("")
-  last_name                String        @default("")
-  // Fields needed for the new Intake Form UI
-  dob                       DateTime?   @db.Date
-  phone                     String?
-  email                     String?
-  gender_identity           String?
-  pronouns                  String?
-  emergency_name            String?
-  emergency_phone           String?
-  reason_for_care           String?
-  treatment_goals           String?
-  insurance_provider        String?
-  insurance_plan            String?
-  insurance_id              String?
+  
+  // Relational link to clinician
+  clinician_id             String?            @db.Uuid
+  assigned_clinician       clinician_profile? @relation(fields: [clinician_id], references: [id])
 }
 
 model clinician_profile {
@@ -53,12 +88,10 @@ model clinician_profile {
   location             String          @default("")
   languages            String[]        @default(["English"])
   preferred_modality   modality_type[] @default([])
+  
   created_at           DateTime        @default(now()) @db.Timestamptz(6)
   updated_at           DateTime        @default(now()) @db.Timestamptz(6)
-}
 
-enum modality_type {
-  in_person
-  telehealth
-  hybrid
+  // Inverse relation for Prisma
+  assigned_clients     client_profile[]
 }

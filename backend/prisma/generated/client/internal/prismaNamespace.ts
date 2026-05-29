@@ -594,15 +594,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const Client_profileScalarFieldEnum = {
   id: 'id',
-  communication_level: 'communication_level',
-  social_interaction_level: 'social_interaction_level',
-  sensory_level: 'sensory_level',
-  available_time_slots: 'available_time_slots',
-  location: 'location',
-  preferred_language: 'preferred_language',
-  preferred_modality: 'preferred_modality',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
+  status: 'status',
   first_name: 'first_name',
   last_name: 'last_name',
   dob: 'dob',
@@ -613,10 +605,26 @@ export const Client_profileScalarFieldEnum = {
   emergency_name: 'emergency_name',
   emergency_phone: 'emergency_phone',
   reason_for_care: 'reason_for_care',
+  presenting_issues: 'presenting_issues',
   treatment_goals: 'treatment_goals',
+  goal_areas: 'goal_areas',
+  communication_level: 'communication_level',
+  social_interaction_level: 'social_interaction_level',
+  sensory_level: 'sensory_level',
+  location: 'location',
+  telehealth_link: 'telehealth_link',
+  preferred_language: 'preferred_language',
+  therapist_gender_pref: 'therapist_gender_pref',
+  preferred_modality: 'preferred_modality',
+  available_time_slots: 'available_time_slots',
+  availability_blocks: 'availability_blocks',
   insurance_provider: 'insurance_provider',
   insurance_plan: 'insurance_plan',
-  insurance_id: 'insurance_id'
+  insurance_id: 'insurance_id',
+  clinician_name: 'clinician_name',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  clinician_id: 'clinician_id'
 } as const
 
 export type Client_profileScalarFieldEnum = (typeof Client_profileScalarFieldEnum)[keyof typeof Client_profileScalarFieldEnum]
@@ -684,16 +692,23 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'PatientStatus'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type EnumPatientStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PatientStatus'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'PatientStatus[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type ListEnumPatientStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PatientStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
@@ -705,9 +720,16 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'DateTime'
+ * Reference to a field of type 'Int'
  */
-export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 

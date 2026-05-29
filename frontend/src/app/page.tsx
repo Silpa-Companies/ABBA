@@ -19,7 +19,7 @@ export default async function PatientsPage() {
 
       {/* We handed all the toolbar controls over to DataTable, so we just render the table here! */}
       <div className="bg-white rounded-lg shadow-sm">
-        <DataTable columns={columns} data={clients} />
+        <DataTable columns={columns as any} data={clients} />
       </div>
     </div>
   );

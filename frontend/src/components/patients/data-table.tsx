@@ -22,6 +22,9 @@ import { Input } from "@/components/ui/input";
 import IntakeModal from "@/components/patients/IntakeModal";
 import { deleteClientAction } from "@/app/actions/clients";
 
+// NEW: Import the strict Prisma type so we can pass data to the modal cleanly
+import type { client_profileModel as client_profile } from "@/generated/prisma/models/client_profile";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -36,6 +39,16 @@ export function DataTable<TData, TValue>({
   const [rowSelection, setRowSelection] = useState({});
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const [singleDeleteId, setSingleDeleteId] = useState<string | null>(null);
+
+  // FIX: Replaced 'any' with 'TData'
+  const [modalPatient, setModalPatient] = useState<TData | null>(null);
+  const [modalMode, setModalMode] = useState<"create" | "edit" | "view">(
+    "create",
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [isDeleting, setIsDeleting] = useState(false);
 
   const table = useReactTable({
@@ -49,6 +62,23 @@ export function DataTable<TData, TValue>({
         select: isDeleteMode,
       },
     },
+    meta: {
+      // Change (patient: any) to (patient: TData)
+      onEdit: (patient: TData) => {
+        setModalPatient(patient);
+        setModalMode("edit");
+        setIsModalOpen(true);
+      },
+      // Change (patient: any) to (patient: TData)
+      onView: (patient: TData) => {
+        setModalPatient(patient);
+        setModalMode("view");
+        setIsModalOpen(true);
+      },
+      onDelete: (id: string) => {
+        setSingleDeleteId(id);
+      },
+    },
   });
 
   const selectedRows = table.getFilteredSelectedRowModel().rows;
@@ -57,12 +87,17 @@ export function DataTable<TData, TValue>({
   const executeDelete = async () => {
     setIsDeleting(true);
     try {
-      for (const row of selectedRows) {
-        const id = (row.original as { id: string }).id;
-        await deleteClientAction(id);
+      if (singleDeleteId) {
+        await deleteClientAction(singleDeleteId);
+      } else {
+        for (const row of selectedRows) {
+          const id = (row.original as { id: string }).id;
+          await deleteClientAction(id);
+        }
       }
       setRowSelection({});
       setShowConfirmModal(false);
+      setSingleDeleteId(null);
       setIsDeleteMode(false);
       router.refresh();
     } catch (error) {
@@ -73,9 +108,19 @@ export function DataTable<TData, TValue>({
     }
   };
 
+  const isConfirmOpen = showConfirmModal || singleDeleteId !== null;
+  const deleteCountDisplay = singleDeleteId ? 1 : selectedCount;
+
   return (
     <div className="space-y-4">
-      {/* 1. The Unified Action Toolbar */}
+      {/* FIX: We cast the TData safely back to a client_profile for the strict IntakeModal */}
+      <IntakeModal
+        patient={modalPatient as unknown as client_profile}
+        mode={modalMode}
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+      />
+
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 w-full max-w-sm relative">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-zinc-500" />
@@ -105,14 +150,23 @@ export function DataTable<TData, TValue>({
                 : "bg-white text-red-600 border-red-200 hover:bg-red-100 hover:text-red-800 hover:border-red-300"
             }`}
           >
-            {isDeleteMode ? "Cancel Selection" : "Delete Clients"}
+            {isDeleteMode ? "Cancel Selection" : "Select to Delete"}
           </Button>
 
-          <IntakeModal />
+          <Button
+            onClick={() => {
+              setModalMode("create");
+              setModalPatient(null);
+              setIsModalOpen(true);
+            }}
+            className="bg-zinc-900 text-white hover:bg-zinc-800 shadow-sm"
+          >
+            <span className="text-lg leading-none mr-2">+</span> New Patient
+            Intake
+          </Button>
         </div>
       </div>
 
-      {/* 2. Dynamic Red Toolbar */}
       {isDeleteMode && selectedCount > 0 && (
         <div className="flex items-center gap-3 bg-red-50/50 p-2 rounded-md border border-red-100 transition-all">
           <span className="text-sm text-zinc-600 font-medium px-2">
@@ -130,7 +184,6 @@ export function DataTable<TData, TValue>({
         </div>
       )}
 
-      {/* 3. The Table */}
       <div className="w-full rounded-md border border-zinc-200 overflow-hidden bg-white">
         <Table>
           <TableHeader className="bg-zinc-50/50">
@@ -187,21 +240,23 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      {/* 4. The Custom Confirmation Modal */}
-      {showConfirmModal && (
+      {isConfirmOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 backdrop-blur-sm transition-opacity">
           <div className="bg-white p-6 rounded-lg w-full max-w-sm shadow-xl border border-zinc-200">
             <h2 className="text-lg font-semibold text-zinc-900 mb-2">
               Delete Patient Records?
             </h2>
             <p className="text-sm text-zinc-500 mb-6">
-              Are you sure you want to permanently delete {selectedCount}{" "}
+              Are you sure you want to permanently delete {deleteCountDisplay}{" "}
               selected profile(s)? This action cannot be undone.
             </p>
             <div className="flex justify-end gap-3 pt-2">
               <Button
                 variant="outline"
-                onClick={() => setShowConfirmModal(false)}
+                onClick={() => {
+                  setShowConfirmModal(false);
+                  setSingleDeleteId(null);
+                }}
                 disabled={isDeleting}
                 className="transition-colors hover:bg-zinc-100"
               >

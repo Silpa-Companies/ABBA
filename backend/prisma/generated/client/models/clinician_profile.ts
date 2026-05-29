@@ -214,6 +214,7 @@ export type clinician_profileWhereInput = {
   preferred_modality?: Prisma.Enummodality_typeNullableListFilter<"clinician_profile">
   created_at?: Prisma.DateTimeFilter<"clinician_profile"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"clinician_profile"> | Date | string
+  assigned_clients?: Prisma.Client_profileListRelationFilter
 }
 
 export type clinician_profileOrderByWithRelationInput = {
@@ -228,6 +229,7 @@ export type clinician_profileOrderByWithRelationInput = {
   preferred_modality?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  assigned_clients?: Prisma.client_profileOrderByRelationAggregateInput
 }
 
 export type clinician_profileWhereUniqueInput = Prisma.AtLeast<{
@@ -245,6 +247,7 @@ export type clinician_profileWhereUniqueInput = Prisma.AtLeast<{
   preferred_modality?: Prisma.Enummodality_typeNullableListFilter<"clinician_profile">
   created_at?: Prisma.DateTimeFilter<"clinician_profile"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"clinician_profile"> | Date | string
+  assigned_clients?: Prisma.Client_profileListRelationFilter
 }, "id">
 
 export type clinician_profileOrderByWithAggregationInput = {
@@ -293,6 +296,7 @@ export type clinician_profileCreateInput = {
   preferred_modality?: Prisma.clinician_profileCreatepreferred_modalityInput | $Enums.modality_type[]
   created_at?: Date | string
   updated_at?: Date | string
+  assigned_clients?: Prisma.client_profileCreateNestedManyWithoutAssigned_clinicianInput
 }
 
 export type clinician_profileUncheckedCreateInput = {
@@ -307,6 +311,7 @@ export type clinician_profileUncheckedCreateInput = {
   preferred_modality?: Prisma.clinician_profileCreatepreferred_modalityInput | $Enums.modality_type[]
   created_at?: Date | string
   updated_at?: Date | string
+  assigned_clients?: Prisma.client_profileUncheckedCreateNestedManyWithoutAssigned_clinicianInput
 }
 
 export type clinician_profileUpdateInput = {
@@ -321,6 +326,7 @@ export type clinician_profileUpdateInput = {
   preferred_modality?: Prisma.clinician_profileUpdatepreferred_modalityInput | $Enums.modality_type[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assigned_clients?: Prisma.client_profileUpdateManyWithoutAssigned_clinicianNestedInput
 }
 
 export type clinician_profileUncheckedUpdateInput = {
@@ -335,6 +341,7 @@ export type clinician_profileUncheckedUpdateInput = {
   preferred_modality?: Prisma.clinician_profileUpdatepreferred_modalityInput | $Enums.modality_type[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assigned_clients?: Prisma.client_profileUncheckedUpdateManyWithoutAssigned_clinicianNestedInput
 }
 
 export type clinician_profileCreateManyInput = {
@@ -379,12 +386,9 @@ export type clinician_profileUncheckedUpdateManyInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
+export type Clinician_profileNullableScalarRelationFilter = {
+  is?: Prisma.clinician_profileWhereInput | null
+  isNot?: Prisma.clinician_profileWhereInput | null
 }
 
 export type Enummodality_typeNullableListFilter<$PrismaModel = never> = {
@@ -429,6 +433,22 @@ export type clinician_profileMinOrderByAggregateInput = {
   updated_at?: Prisma.SortOrder
 }
 
+export type clinician_profileCreateNestedOneWithoutAssigned_clientsInput = {
+  create?: Prisma.XOR<Prisma.clinician_profileCreateWithoutAssigned_clientsInput, Prisma.clinician_profileUncheckedCreateWithoutAssigned_clientsInput>
+  connectOrCreate?: Prisma.clinician_profileCreateOrConnectWithoutAssigned_clientsInput
+  connect?: Prisma.clinician_profileWhereUniqueInput
+}
+
+export type clinician_profileUpdateOneWithoutAssigned_clientsNestedInput = {
+  create?: Prisma.XOR<Prisma.clinician_profileCreateWithoutAssigned_clientsInput, Prisma.clinician_profileUncheckedCreateWithoutAssigned_clientsInput>
+  connectOrCreate?: Prisma.clinician_profileCreateOrConnectWithoutAssigned_clientsInput
+  upsert?: Prisma.clinician_profileUpsertWithoutAssigned_clientsInput
+  disconnect?: Prisma.clinician_profileWhereInput | boolean
+  delete?: Prisma.clinician_profileWhereInput | boolean
+  connect?: Prisma.clinician_profileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.clinician_profileUpdateToOneWithWhereWithoutAssigned_clientsInput, Prisma.clinician_profileUpdateWithoutAssigned_clientsInput>, Prisma.clinician_profileUncheckedUpdateWithoutAssigned_clientsInput>
+}
+
 export type clinician_profileCreatespecialtiesInput = {
   set: string[]
 }
@@ -465,6 +485,107 @@ export type clinician_profileUpdatepreferred_modalityInput = {
   push?: $Enums.modality_type | $Enums.modality_type[]
 }
 
+export type clinician_profileCreateWithoutAssigned_clientsInput = {
+  id?: string
+  first_name: string
+  last_name: string
+  bio?: string | null
+  specialties?: Prisma.clinician_profileCreatespecialtiesInput | string[]
+  available_time_slots?: Prisma.clinician_profileCreateavailable_time_slotsInput | Date[] | string[]
+  location?: string
+  languages?: Prisma.clinician_profileCreatelanguagesInput | string[]
+  preferred_modality?: Prisma.clinician_profileCreatepreferred_modalityInput | $Enums.modality_type[]
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type clinician_profileUncheckedCreateWithoutAssigned_clientsInput = {
+  id?: string
+  first_name: string
+  last_name: string
+  bio?: string | null
+  specialties?: Prisma.clinician_profileCreatespecialtiesInput | string[]
+  available_time_slots?: Prisma.clinician_profileCreateavailable_time_slotsInput | Date[] | string[]
+  location?: string
+  languages?: Prisma.clinician_profileCreatelanguagesInput | string[]
+  preferred_modality?: Prisma.clinician_profileCreatepreferred_modalityInput | $Enums.modality_type[]
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type clinician_profileCreateOrConnectWithoutAssigned_clientsInput = {
+  where: Prisma.clinician_profileWhereUniqueInput
+  create: Prisma.XOR<Prisma.clinician_profileCreateWithoutAssigned_clientsInput, Prisma.clinician_profileUncheckedCreateWithoutAssigned_clientsInput>
+}
+
+export type clinician_profileUpsertWithoutAssigned_clientsInput = {
+  update: Prisma.XOR<Prisma.clinician_profileUpdateWithoutAssigned_clientsInput, Prisma.clinician_profileUncheckedUpdateWithoutAssigned_clientsInput>
+  create: Prisma.XOR<Prisma.clinician_profileCreateWithoutAssigned_clientsInput, Prisma.clinician_profileUncheckedCreateWithoutAssigned_clientsInput>
+  where?: Prisma.clinician_profileWhereInput
+}
+
+export type clinician_profileUpdateToOneWithWhereWithoutAssigned_clientsInput = {
+  where?: Prisma.clinician_profileWhereInput
+  data: Prisma.XOR<Prisma.clinician_profileUpdateWithoutAssigned_clientsInput, Prisma.clinician_profileUncheckedUpdateWithoutAssigned_clientsInput>
+}
+
+export type clinician_profileUpdateWithoutAssigned_clientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  specialties?: Prisma.clinician_profileUpdatespecialtiesInput | string[]
+  available_time_slots?: Prisma.clinician_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  languages?: Prisma.clinician_profileUpdatelanguagesInput | string[]
+  preferred_modality?: Prisma.clinician_profileUpdatepreferred_modalityInput | $Enums.modality_type[]
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type clinician_profileUncheckedUpdateWithoutAssigned_clientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  specialties?: Prisma.clinician_profileUpdatespecialtiesInput | string[]
+  available_time_slots?: Prisma.clinician_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  languages?: Prisma.clinician_profileUpdatelanguagesInput | string[]
+  preferred_modality?: Prisma.clinician_profileUpdatepreferred_modalityInput | $Enums.modality_type[]
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type Clinician_profileCountOutputType
+ */
+
+export type Clinician_profileCountOutputType = {
+  assigned_clients: number
+}
+
+export type Clinician_profileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  assigned_clients?: boolean | Clinician_profileCountOutputTypeCountAssigned_clientsArgs
+}
+
+/**
+ * Clinician_profileCountOutputType without action
+ */
+export type Clinician_profileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Clinician_profileCountOutputType
+   */
+  select?: Prisma.Clinician_profileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * Clinician_profileCountOutputType without action
+ */
+export type Clinician_profileCountOutputTypeCountAssigned_clientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.client_profileWhereInput
+}
 
 
 export type clinician_profileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -479,6 +600,8 @@ export type clinician_profileSelect<ExtArgs extends runtime.Types.Extensions.Int
   preferred_modality?: boolean
   created_at?: boolean
   updated_at?: boolean
+  assigned_clients?: boolean | Prisma.clinician_profile$assigned_clientsArgs<ExtArgs>
+  _count?: boolean | Prisma.Clinician_profileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clinician_profile"]>
 
 export type clinician_profileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -524,10 +647,18 @@ export type clinician_profileSelectScalar = {
 }
 
 export type clinician_profileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "bio" | "specialties" | "available_time_slots" | "location" | "languages" | "preferred_modality" | "created_at" | "updated_at", ExtArgs["result"]["clinician_profile"]>
+export type clinician_profileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  assigned_clients?: boolean | Prisma.clinician_profile$assigned_clientsArgs<ExtArgs>
+  _count?: boolean | Prisma.Clinician_profileCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type clinician_profileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type clinician_profileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $clinician_profilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "clinician_profile"
-  objects: {}
+  objects: {
+    assigned_clients: Prisma.$client_profilePayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     first_name: string
@@ -934,6 +1065,7 @@ readonly fields: clinician_profileFieldRefs;
  */
 export interface Prisma__clinician_profileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  assigned_clients<T extends Prisma.clinician_profile$assigned_clientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.clinician_profile$assigned_clientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$client_profilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -991,6 +1123,10 @@ export type clinician_profileFindUniqueArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
+  /**
    * Filter, which clinician_profile to fetch.
    */
   where: Prisma.clinician_profileWhereUniqueInput
@@ -1009,6 +1145,10 @@ export type clinician_profileFindUniqueOrThrowArgs<ExtArgs extends runtime.Types
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
+  /**
    * Filter, which clinician_profile to fetch.
    */
   where: Prisma.clinician_profileWhereUniqueInput
@@ -1026,6 +1166,10 @@ export type clinician_profileFindFirstArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the clinician_profile
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
   /**
    * Filter, which clinician_profile to fetch.
    */
@@ -1075,6 +1219,10 @@ export type clinician_profileFindFirstOrThrowArgs<ExtArgs extends runtime.Types.
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
+  /**
    * Filter, which clinician_profile to fetch.
    */
   where?: Prisma.clinician_profileWhereInput
@@ -1122,6 +1270,10 @@ export type clinician_profileFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the clinician_profile
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
   /**
    * Filter, which clinician_profiles to fetch.
    */
@@ -1171,6 +1323,10 @@ export type clinician_profileCreateArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
+  /**
    * The data needed to create a clinician_profile.
    */
   data: Prisma.XOR<Prisma.clinician_profileCreateInput, Prisma.clinician_profileUncheckedCreateInput>
@@ -1218,6 +1374,10 @@ export type clinician_profileUpdateArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the clinician_profile
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
   /**
    * The data needed to update a clinician_profile.
    */
@@ -1285,6 +1445,10 @@ export type clinician_profileUpsertArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
+  /**
    * The filter to search for the clinician_profile to update in case it exists.
    */
   where: Prisma.clinician_profileWhereUniqueInput
@@ -1311,6 +1475,10 @@ export type clinician_profileDeleteArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
+  /**
    * Filter which clinician_profile to delete.
    */
   where: Prisma.clinician_profileWhereUniqueInput
@@ -1331,6 +1499,30 @@ export type clinician_profileDeleteManyArgs<ExtArgs extends runtime.Types.Extens
 }
 
 /**
+ * clinician_profile.assigned_clients
+ */
+export type clinician_profile$assigned_clientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the client_profile
+   */
+  select?: Prisma.client_profileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the client_profile
+   */
+  omit?: Prisma.client_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
+  where?: Prisma.client_profileWhereInput
+  orderBy?: Prisma.client_profileOrderByWithRelationInput | Prisma.client_profileOrderByWithRelationInput[]
+  cursor?: Prisma.client_profileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Client_profileScalarFieldEnum | Prisma.Client_profileScalarFieldEnum[]
+}
+
+/**
  * clinician_profile without action
  */
 export type clinician_profileDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1342,4 +1534,8 @@ export type clinician_profileDefaultArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the clinician_profile
    */
   omit?: Prisma.clinician_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
 }

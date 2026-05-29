@@ -40,14 +40,7 @@ export type Client_profileSumAggregateOutputType = {
 
 export type Client_profileMinAggregateOutputType = {
   id: string | null
-  communication_level: number | null
-  social_interaction_level: number | null
-  sensory_level: number | null
-  location: string | null
-  preferred_language: string | null
-  preferred_modality: $Enums.modality_type | null
-  created_at: Date | null
-  updated_at: Date | null
+  status: $Enums.PatientStatus | null
   first_name: string | null
   last_name: string | null
   dob: Date | null
@@ -59,21 +52,26 @@ export type Client_profileMinAggregateOutputType = {
   emergency_phone: string | null
   reason_for_care: string | null
   treatment_goals: string | null
+  communication_level: number | null
+  social_interaction_level: number | null
+  sensory_level: number | null
+  location: string | null
+  telehealth_link: string | null
+  preferred_language: string | null
+  therapist_gender_pref: string | null
+  preferred_modality: $Enums.modality_type | null
   insurance_provider: string | null
   insurance_plan: string | null
   insurance_id: string | null
+  clinician_name: string | null
+  created_at: Date | null
+  updated_at: Date | null
+  clinician_id: string | null
 }
 
 export type Client_profileMaxAggregateOutputType = {
   id: string | null
-  communication_level: number | null
-  social_interaction_level: number | null
-  sensory_level: number | null
-  location: string | null
-  preferred_language: string | null
-  preferred_modality: $Enums.modality_type | null
-  created_at: Date | null
-  updated_at: Date | null
+  status: $Enums.PatientStatus | null
   first_name: string | null
   last_name: string | null
   dob: Date | null
@@ -85,22 +83,26 @@ export type Client_profileMaxAggregateOutputType = {
   emergency_phone: string | null
   reason_for_care: string | null
   treatment_goals: string | null
+  communication_level: number | null
+  social_interaction_level: number | null
+  sensory_level: number | null
+  location: string | null
+  telehealth_link: string | null
+  preferred_language: string | null
+  therapist_gender_pref: string | null
+  preferred_modality: $Enums.modality_type | null
   insurance_provider: string | null
   insurance_plan: string | null
   insurance_id: string | null
+  clinician_name: string | null
+  created_at: Date | null
+  updated_at: Date | null
+  clinician_id: string | null
 }
 
 export type Client_profileCountAggregateOutputType = {
   id: number
-  communication_level: number
-  social_interaction_level: number
-  sensory_level: number
-  available_time_slots: number
-  location: number
-  preferred_language: number
-  preferred_modality: number
-  created_at: number
-  updated_at: number
+  status: number
   first_name: number
   last_name: number
   dob: number
@@ -111,10 +113,26 @@ export type Client_profileCountAggregateOutputType = {
   emergency_name: number
   emergency_phone: number
   reason_for_care: number
+  presenting_issues: number
   treatment_goals: number
+  goal_areas: number
+  communication_level: number
+  social_interaction_level: number
+  sensory_level: number
+  location: number
+  telehealth_link: number
+  preferred_language: number
+  therapist_gender_pref: number
+  preferred_modality: number
+  available_time_slots: number
+  availability_blocks: number
   insurance_provider: number
   insurance_plan: number
   insurance_id: number
+  clinician_name: number
+  created_at: number
+  updated_at: number
+  clinician_id: number
   _all: number
 }
 
@@ -133,14 +151,7 @@ export type Client_profileSumAggregateInputType = {
 
 export type Client_profileMinAggregateInputType = {
   id?: true
-  communication_level?: true
-  social_interaction_level?: true
-  sensory_level?: true
-  location?: true
-  preferred_language?: true
-  preferred_modality?: true
-  created_at?: true
-  updated_at?: true
+  status?: true
   first_name?: true
   last_name?: true
   dob?: true
@@ -152,21 +163,26 @@ export type Client_profileMinAggregateInputType = {
   emergency_phone?: true
   reason_for_care?: true
   treatment_goals?: true
+  communication_level?: true
+  social_interaction_level?: true
+  sensory_level?: true
+  location?: true
+  telehealth_link?: true
+  preferred_language?: true
+  therapist_gender_pref?: true
+  preferred_modality?: true
   insurance_provider?: true
   insurance_plan?: true
   insurance_id?: true
+  clinician_name?: true
+  created_at?: true
+  updated_at?: true
+  clinician_id?: true
 }
 
 export type Client_profileMaxAggregateInputType = {
   id?: true
-  communication_level?: true
-  social_interaction_level?: true
-  sensory_level?: true
-  location?: true
-  preferred_language?: true
-  preferred_modality?: true
-  created_at?: true
-  updated_at?: true
+  status?: true
   first_name?: true
   last_name?: true
   dob?: true
@@ -178,22 +194,26 @@ export type Client_profileMaxAggregateInputType = {
   emergency_phone?: true
   reason_for_care?: true
   treatment_goals?: true
+  communication_level?: true
+  social_interaction_level?: true
+  sensory_level?: true
+  location?: true
+  telehealth_link?: true
+  preferred_language?: true
+  therapist_gender_pref?: true
+  preferred_modality?: true
   insurance_provider?: true
   insurance_plan?: true
   insurance_id?: true
+  clinician_name?: true
+  created_at?: true
+  updated_at?: true
+  clinician_id?: true
 }
 
 export type Client_profileCountAggregateInputType = {
   id?: true
-  communication_level?: true
-  social_interaction_level?: true
-  sensory_level?: true
-  available_time_slots?: true
-  location?: true
-  preferred_language?: true
-  preferred_modality?: true
-  created_at?: true
-  updated_at?: true
+  status?: true
   first_name?: true
   last_name?: true
   dob?: true
@@ -204,10 +224,26 @@ export type Client_profileCountAggregateInputType = {
   emergency_name?: true
   emergency_phone?: true
   reason_for_care?: true
+  presenting_issues?: true
   treatment_goals?: true
+  goal_areas?: true
+  communication_level?: true
+  social_interaction_level?: true
+  sensory_level?: true
+  location?: true
+  telehealth_link?: true
+  preferred_language?: true
+  therapist_gender_pref?: true
+  preferred_modality?: true
+  available_time_slots?: true
+  availability_blocks?: true
   insurance_provider?: true
   insurance_plan?: true
   insurance_id?: true
+  clinician_name?: true
+  created_at?: true
+  updated_at?: true
+  clinician_id?: true
   _all?: true
 }
 
@@ -299,17 +335,9 @@ export type client_profileGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type Client_profileGroupByOutputType = {
   id: string
-  communication_level: number
-  social_interaction_level: number
-  sensory_level: number
-  available_time_slots: Date[]
-  location: string
-  preferred_language: string
-  preferred_modality: $Enums.modality_type
-  created_at: Date
-  updated_at: Date
-  first_name: string
-  last_name: string
+  status: $Enums.PatientStatus
+  first_name: string | null
+  last_name: string | null
   dob: Date | null
   phone: string | null
   email: string | null
@@ -318,10 +346,26 @@ export type Client_profileGroupByOutputType = {
   emergency_name: string | null
   emergency_phone: string | null
   reason_for_care: string | null
+  presenting_issues: string[]
   treatment_goals: string | null
+  goal_areas: string[]
+  communication_level: number | null
+  social_interaction_level: number | null
+  sensory_level: number | null
+  location: string | null
+  telehealth_link: string | null
+  preferred_language: string | null
+  therapist_gender_pref: string | null
+  preferred_modality: $Enums.modality_type
+  available_time_slots: Date[]
+  availability_blocks: string[]
   insurance_provider: string | null
   insurance_plan: string | null
   insurance_id: string | null
+  clinician_name: string | null
+  created_at: Date
+  updated_at: Date
+  clinician_id: string | null
   _count: Client_profileCountAggregateOutputType | null
   _avg: Client_profileAvgAggregateOutputType | null
   _sum: Client_profileSumAggregateOutputType | null
@@ -349,17 +393,9 @@ export type client_profileWhereInput = {
   OR?: Prisma.client_profileWhereInput[]
   NOT?: Prisma.client_profileWhereInput | Prisma.client_profileWhereInput[]
   id?: Prisma.UuidFilter<"client_profile"> | string
-  communication_level?: Prisma.IntFilter<"client_profile"> | number
-  social_interaction_level?: Prisma.IntFilter<"client_profile"> | number
-  sensory_level?: Prisma.IntFilter<"client_profile"> | number
-  available_time_slots?: Prisma.DateTimeNullableListFilter<"client_profile">
-  location?: Prisma.StringFilter<"client_profile"> | string
-  preferred_language?: Prisma.StringFilter<"client_profile"> | string
-  preferred_modality?: Prisma.Enummodality_typeFilter<"client_profile"> | $Enums.modality_type
-  created_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
-  first_name?: Prisma.StringFilter<"client_profile"> | string
-  last_name?: Prisma.StringFilter<"client_profile"> | string
+  status?: Prisma.EnumPatientStatusFilter<"client_profile"> | $Enums.PatientStatus
+  first_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  last_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
   dob?: Prisma.DateTimeNullableFilter<"client_profile"> | Date | string | null
   phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
   email?: Prisma.StringNullableFilter<"client_profile"> | string | null
@@ -368,25 +404,34 @@ export type client_profileWhereInput = {
   emergency_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
   emergency_phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
   reason_for_care?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  presenting_issues?: Prisma.StringNullableListFilter<"client_profile">
   treatment_goals?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  goal_areas?: Prisma.StringNullableListFilter<"client_profile">
+  communication_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  social_interaction_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  sensory_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  location?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  telehealth_link?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  preferred_language?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  therapist_gender_pref?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  preferred_modality?: Prisma.Enummodality_typeFilter<"client_profile"> | $Enums.modality_type
+  available_time_slots?: Prisma.DateTimeNullableListFilter<"client_profile">
+  availability_blocks?: Prisma.StringNullableListFilter<"client_profile">
   insurance_provider?: Prisma.StringNullableFilter<"client_profile"> | string | null
   insurance_plan?: Prisma.StringNullableFilter<"client_profile"> | string | null
   insurance_id?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  clinician_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  created_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
+  clinician_id?: Prisma.UuidNullableFilter<"client_profile"> | string | null
+  assigned_clinician?: Prisma.XOR<Prisma.Clinician_profileNullableScalarRelationFilter, Prisma.clinician_profileWhereInput> | null
 }
 
 export type client_profileOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  communication_level?: Prisma.SortOrder
-  social_interaction_level?: Prisma.SortOrder
-  sensory_level?: Prisma.SortOrder
-  available_time_slots?: Prisma.SortOrder
-  location?: Prisma.SortOrder
-  preferred_language?: Prisma.SortOrder
-  preferred_modality?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
-  first_name?: Prisma.SortOrder
-  last_name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  first_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  last_name?: Prisma.SortOrderInput | Prisma.SortOrder
   dob?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -395,10 +440,27 @@ export type client_profileOrderByWithRelationInput = {
   emergency_name?: Prisma.SortOrderInput | Prisma.SortOrder
   emergency_phone?: Prisma.SortOrderInput | Prisma.SortOrder
   reason_for_care?: Prisma.SortOrderInput | Prisma.SortOrder
+  presenting_issues?: Prisma.SortOrder
   treatment_goals?: Prisma.SortOrderInput | Prisma.SortOrder
+  goal_areas?: Prisma.SortOrder
+  communication_level?: Prisma.SortOrderInput | Prisma.SortOrder
+  social_interaction_level?: Prisma.SortOrderInput | Prisma.SortOrder
+  sensory_level?: Prisma.SortOrderInput | Prisma.SortOrder
+  location?: Prisma.SortOrderInput | Prisma.SortOrder
+  telehealth_link?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferred_language?: Prisma.SortOrderInput | Prisma.SortOrder
+  therapist_gender_pref?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferred_modality?: Prisma.SortOrder
+  available_time_slots?: Prisma.SortOrder
+  availability_blocks?: Prisma.SortOrder
   insurance_provider?: Prisma.SortOrderInput | Prisma.SortOrder
   insurance_plan?: Prisma.SortOrderInput | Prisma.SortOrder
   insurance_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  clinician_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  clinician_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  assigned_clinician?: Prisma.clinician_profileOrderByWithRelationInput
 }
 
 export type client_profileWhereUniqueInput = Prisma.AtLeast<{
@@ -406,17 +468,9 @@ export type client_profileWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.client_profileWhereInput | Prisma.client_profileWhereInput[]
   OR?: Prisma.client_profileWhereInput[]
   NOT?: Prisma.client_profileWhereInput | Prisma.client_profileWhereInput[]
-  communication_level?: Prisma.IntFilter<"client_profile"> | number
-  social_interaction_level?: Prisma.IntFilter<"client_profile"> | number
-  sensory_level?: Prisma.IntFilter<"client_profile"> | number
-  available_time_slots?: Prisma.DateTimeNullableListFilter<"client_profile">
-  location?: Prisma.StringFilter<"client_profile"> | string
-  preferred_language?: Prisma.StringFilter<"client_profile"> | string
-  preferred_modality?: Prisma.Enummodality_typeFilter<"client_profile"> | $Enums.modality_type
-  created_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
-  first_name?: Prisma.StringFilter<"client_profile"> | string
-  last_name?: Prisma.StringFilter<"client_profile"> | string
+  status?: Prisma.EnumPatientStatusFilter<"client_profile"> | $Enums.PatientStatus
+  first_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  last_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
   dob?: Prisma.DateTimeNullableFilter<"client_profile"> | Date | string | null
   phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
   email?: Prisma.StringNullableFilter<"client_profile"> | string | null
@@ -425,25 +479,34 @@ export type client_profileWhereUniqueInput = Prisma.AtLeast<{
   emergency_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
   emergency_phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
   reason_for_care?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  presenting_issues?: Prisma.StringNullableListFilter<"client_profile">
   treatment_goals?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  goal_areas?: Prisma.StringNullableListFilter<"client_profile">
+  communication_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  social_interaction_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  sensory_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  location?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  telehealth_link?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  preferred_language?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  therapist_gender_pref?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  preferred_modality?: Prisma.Enummodality_typeFilter<"client_profile"> | $Enums.modality_type
+  available_time_slots?: Prisma.DateTimeNullableListFilter<"client_profile">
+  availability_blocks?: Prisma.StringNullableListFilter<"client_profile">
   insurance_provider?: Prisma.StringNullableFilter<"client_profile"> | string | null
   insurance_plan?: Prisma.StringNullableFilter<"client_profile"> | string | null
   insurance_id?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  clinician_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  created_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
+  clinician_id?: Prisma.UuidNullableFilter<"client_profile"> | string | null
+  assigned_clinician?: Prisma.XOR<Prisma.Clinician_profileNullableScalarRelationFilter, Prisma.clinician_profileWhereInput> | null
 }, "id">
 
 export type client_profileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  communication_level?: Prisma.SortOrder
-  social_interaction_level?: Prisma.SortOrder
-  sensory_level?: Prisma.SortOrder
-  available_time_slots?: Prisma.SortOrder
-  location?: Prisma.SortOrder
-  preferred_language?: Prisma.SortOrder
-  preferred_modality?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
-  first_name?: Prisma.SortOrder
-  last_name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  first_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  last_name?: Prisma.SortOrderInput | Prisma.SortOrder
   dob?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -452,10 +515,26 @@ export type client_profileOrderByWithAggregationInput = {
   emergency_name?: Prisma.SortOrderInput | Prisma.SortOrder
   emergency_phone?: Prisma.SortOrderInput | Prisma.SortOrder
   reason_for_care?: Prisma.SortOrderInput | Prisma.SortOrder
+  presenting_issues?: Prisma.SortOrder
   treatment_goals?: Prisma.SortOrderInput | Prisma.SortOrder
+  goal_areas?: Prisma.SortOrder
+  communication_level?: Prisma.SortOrderInput | Prisma.SortOrder
+  social_interaction_level?: Prisma.SortOrderInput | Prisma.SortOrder
+  sensory_level?: Prisma.SortOrderInput | Prisma.SortOrder
+  location?: Prisma.SortOrderInput | Prisma.SortOrder
+  telehealth_link?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferred_language?: Prisma.SortOrderInput | Prisma.SortOrder
+  therapist_gender_pref?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferred_modality?: Prisma.SortOrder
+  available_time_slots?: Prisma.SortOrder
+  availability_blocks?: Prisma.SortOrder
   insurance_provider?: Prisma.SortOrderInput | Prisma.SortOrder
   insurance_plan?: Prisma.SortOrderInput | Prisma.SortOrder
   insurance_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  clinician_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  clinician_id?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.client_profileCountOrderByAggregateInput
   _avg?: Prisma.client_profileAvgOrderByAggregateInput
   _max?: Prisma.client_profileMaxOrderByAggregateInput
@@ -468,17 +547,9 @@ export type client_profileScalarWhereWithAggregatesInput = {
   OR?: Prisma.client_profileScalarWhereWithAggregatesInput[]
   NOT?: Prisma.client_profileScalarWhereWithAggregatesInput | Prisma.client_profileScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"client_profile"> | string
-  communication_level?: Prisma.IntWithAggregatesFilter<"client_profile"> | number
-  social_interaction_level?: Prisma.IntWithAggregatesFilter<"client_profile"> | number
-  sensory_level?: Prisma.IntWithAggregatesFilter<"client_profile"> | number
-  available_time_slots?: Prisma.DateTimeNullableListFilter<"client_profile">
-  location?: Prisma.StringWithAggregatesFilter<"client_profile"> | string
-  preferred_language?: Prisma.StringWithAggregatesFilter<"client_profile"> | string
-  preferred_modality?: Prisma.Enummodality_typeWithAggregatesFilter<"client_profile"> | $Enums.modality_type
-  created_at?: Prisma.DateTimeWithAggregatesFilter<"client_profile"> | Date | string
-  updated_at?: Prisma.DateTimeWithAggregatesFilter<"client_profile"> | Date | string
-  first_name?: Prisma.StringWithAggregatesFilter<"client_profile"> | string
-  last_name?: Prisma.StringWithAggregatesFilter<"client_profile"> | string
+  status?: Prisma.EnumPatientStatusWithAggregatesFilter<"client_profile"> | $Enums.PatientStatus
+  first_name?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  last_name?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
   dob?: Prisma.DateTimeNullableWithAggregatesFilter<"client_profile"> | Date | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
   email?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
@@ -487,25 +558,33 @@ export type client_profileScalarWhereWithAggregatesInput = {
   emergency_name?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
   emergency_phone?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
   reason_for_care?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  presenting_issues?: Prisma.StringNullableListFilter<"client_profile">
   treatment_goals?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  goal_areas?: Prisma.StringNullableListFilter<"client_profile">
+  communication_level?: Prisma.IntNullableWithAggregatesFilter<"client_profile"> | number | null
+  social_interaction_level?: Prisma.IntNullableWithAggregatesFilter<"client_profile"> | number | null
+  sensory_level?: Prisma.IntNullableWithAggregatesFilter<"client_profile"> | number | null
+  location?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  telehealth_link?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  preferred_language?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  therapist_gender_pref?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  preferred_modality?: Prisma.Enummodality_typeWithAggregatesFilter<"client_profile"> | $Enums.modality_type
+  available_time_slots?: Prisma.DateTimeNullableListFilter<"client_profile">
+  availability_blocks?: Prisma.StringNullableListFilter<"client_profile">
   insurance_provider?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
   insurance_plan?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
   insurance_id?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  clinician_name?: Prisma.StringNullableWithAggregatesFilter<"client_profile"> | string | null
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"client_profile"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"client_profile"> | Date | string
+  clinician_id?: Prisma.UuidNullableWithAggregatesFilter<"client_profile"> | string | null
 }
 
 export type client_profileCreateInput = {
   id?: string
-  communication_level: number
-  social_interaction_level: number
-  sensory_level: number
-  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
-  location?: string
-  preferred_language?: string
-  preferred_modality?: $Enums.modality_type
-  created_at?: Date | string
-  updated_at?: Date | string
-  first_name?: string
-  last_name?: string
+  status?: $Enums.PatientStatus
+  first_name?: string | null
+  last_name?: string | null
   dob?: Date | string | null
   phone?: string | null
   email?: string | null
@@ -514,25 +593,33 @@ export type client_profileCreateInput = {
   emergency_name?: string | null
   emergency_phone?: string | null
   reason_for_care?: string | null
+  presenting_issues?: Prisma.client_profileCreatepresenting_issuesInput | string[]
   treatment_goals?: string | null
+  goal_areas?: Prisma.client_profileCreategoal_areasInput | string[]
+  communication_level?: number | null
+  social_interaction_level?: number | null
+  sensory_level?: number | null
+  location?: string | null
+  telehealth_link?: string | null
+  preferred_language?: string | null
+  therapist_gender_pref?: string | null
+  preferred_modality?: $Enums.modality_type
+  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileCreateavailability_blocksInput | string[]
   insurance_provider?: string | null
   insurance_plan?: string | null
   insurance_id?: string | null
+  clinician_name?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  assigned_clinician?: Prisma.clinician_profileCreateNestedOneWithoutAssigned_clientsInput
 }
 
 export type client_profileUncheckedCreateInput = {
   id?: string
-  communication_level: number
-  social_interaction_level: number
-  sensory_level: number
-  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
-  location?: string
-  preferred_language?: string
-  preferred_modality?: $Enums.modality_type
-  created_at?: Date | string
-  updated_at?: Date | string
-  first_name?: string
-  last_name?: string
+  status?: $Enums.PatientStatus
+  first_name?: string | null
+  last_name?: string | null
   dob?: Date | string | null
   phone?: string | null
   email?: string | null
@@ -541,25 +628,33 @@ export type client_profileUncheckedCreateInput = {
   emergency_name?: string | null
   emergency_phone?: string | null
   reason_for_care?: string | null
+  presenting_issues?: Prisma.client_profileCreatepresenting_issuesInput | string[]
   treatment_goals?: string | null
+  goal_areas?: Prisma.client_profileCreategoal_areasInput | string[]
+  communication_level?: number | null
+  social_interaction_level?: number | null
+  sensory_level?: number | null
+  location?: string | null
+  telehealth_link?: string | null
+  preferred_language?: string | null
+  therapist_gender_pref?: string | null
+  preferred_modality?: $Enums.modality_type
+  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileCreateavailability_blocksInput | string[]
   insurance_provider?: string | null
   insurance_plan?: string | null
   insurance_id?: string | null
+  clinician_name?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  clinician_id?: string | null
 }
 
 export type client_profileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  communication_level?: Prisma.IntFieldUpdateOperationsInput | number
-  social_interaction_level?: Prisma.IntFieldUpdateOperationsInput | number
-  sensory_level?: Prisma.IntFieldUpdateOperationsInput | number
-  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
-  location?: Prisma.StringFieldUpdateOperationsInput | string
-  preferred_language?: Prisma.StringFieldUpdateOperationsInput | string
-  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  first_name?: Prisma.StringFieldUpdateOperationsInput | string
-  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPatientStatusFieldUpdateOperationsInput | $Enums.PatientStatus
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -568,25 +663,33 @@ export type client_profileUpdateInput = {
   emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenting_issues?: Prisma.client_profileUpdatepresenting_issuesInput | string[]
   treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goal_areas?: Prisma.client_profileUpdategoal_areasInput | string[]
+  communication_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  social_interaction_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sensory_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telehealth_link?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  therapist_gender_pref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
+  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileUpdateavailability_blocksInput | string[]
   insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinician_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assigned_clinician?: Prisma.clinician_profileUpdateOneWithoutAssigned_clientsNestedInput
 }
 
 export type client_profileUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  communication_level?: Prisma.IntFieldUpdateOperationsInput | number
-  social_interaction_level?: Prisma.IntFieldUpdateOperationsInput | number
-  sensory_level?: Prisma.IntFieldUpdateOperationsInput | number
-  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
-  location?: Prisma.StringFieldUpdateOperationsInput | string
-  preferred_language?: Prisma.StringFieldUpdateOperationsInput | string
-  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  first_name?: Prisma.StringFieldUpdateOperationsInput | string
-  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPatientStatusFieldUpdateOperationsInput | $Enums.PatientStatus
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -595,25 +698,33 @@ export type client_profileUncheckedUpdateInput = {
   emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenting_issues?: Prisma.client_profileUpdatepresenting_issuesInput | string[]
   treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goal_areas?: Prisma.client_profileUpdategoal_areasInput | string[]
+  communication_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  social_interaction_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sensory_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telehealth_link?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  therapist_gender_pref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
+  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileUpdateavailability_blocksInput | string[]
   insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinician_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clinician_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type client_profileCreateManyInput = {
   id?: string
-  communication_level: number
-  social_interaction_level: number
-  sensory_level: number
-  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
-  location?: string
-  preferred_language?: string
-  preferred_modality?: $Enums.modality_type
-  created_at?: Date | string
-  updated_at?: Date | string
-  first_name?: string
-  last_name?: string
+  status?: $Enums.PatientStatus
+  first_name?: string | null
+  last_name?: string | null
   dob?: Date | string | null
   phone?: string | null
   email?: string | null
@@ -622,25 +733,33 @@ export type client_profileCreateManyInput = {
   emergency_name?: string | null
   emergency_phone?: string | null
   reason_for_care?: string | null
+  presenting_issues?: Prisma.client_profileCreatepresenting_issuesInput | string[]
   treatment_goals?: string | null
+  goal_areas?: Prisma.client_profileCreategoal_areasInput | string[]
+  communication_level?: number | null
+  social_interaction_level?: number | null
+  sensory_level?: number | null
+  location?: string | null
+  telehealth_link?: string | null
+  preferred_language?: string | null
+  therapist_gender_pref?: string | null
+  preferred_modality?: $Enums.modality_type
+  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileCreateavailability_blocksInput | string[]
   insurance_provider?: string | null
   insurance_plan?: string | null
   insurance_id?: string | null
+  clinician_name?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  clinician_id?: string | null
 }
 
 export type client_profileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  communication_level?: Prisma.IntFieldUpdateOperationsInput | number
-  social_interaction_level?: Prisma.IntFieldUpdateOperationsInput | number
-  sensory_level?: Prisma.IntFieldUpdateOperationsInput | number
-  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
-  location?: Prisma.StringFieldUpdateOperationsInput | string
-  preferred_language?: Prisma.StringFieldUpdateOperationsInput | string
-  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  first_name?: Prisma.StringFieldUpdateOperationsInput | string
-  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPatientStatusFieldUpdateOperationsInput | $Enums.PatientStatus
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -649,25 +768,32 @@ export type client_profileUpdateManyMutationInput = {
   emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenting_issues?: Prisma.client_profileUpdatepresenting_issuesInput | string[]
   treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goal_areas?: Prisma.client_profileUpdategoal_areasInput | string[]
+  communication_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  social_interaction_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sensory_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telehealth_link?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  therapist_gender_pref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
+  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileUpdateavailability_blocksInput | string[]
   insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinician_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type client_profileUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  communication_level?: Prisma.IntFieldUpdateOperationsInput | number
-  social_interaction_level?: Prisma.IntFieldUpdateOperationsInput | number
-  sensory_level?: Prisma.IntFieldUpdateOperationsInput | number
-  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
-  location?: Prisma.StringFieldUpdateOperationsInput | string
-  preferred_language?: Prisma.StringFieldUpdateOperationsInput | string
-  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  first_name?: Prisma.StringFieldUpdateOperationsInput | string
-  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPatientStatusFieldUpdateOperationsInput | $Enums.PatientStatus
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -676,10 +802,34 @@ export type client_profileUncheckedUpdateManyInput = {
   emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenting_issues?: Prisma.client_profileUpdatepresenting_issuesInput | string[]
   treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goal_areas?: Prisma.client_profileUpdategoal_areasInput | string[]
+  communication_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  social_interaction_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sensory_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telehealth_link?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  therapist_gender_pref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
+  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileUpdateavailability_blocksInput | string[]
   insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinician_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clinician_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type DateTimeNullableListFilter<$PrismaModel = never> = {
@@ -692,15 +842,7 @@ export type DateTimeNullableListFilter<$PrismaModel = never> = {
 
 export type client_profileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  communication_level?: Prisma.SortOrder
-  social_interaction_level?: Prisma.SortOrder
-  sensory_level?: Prisma.SortOrder
-  available_time_slots?: Prisma.SortOrder
-  location?: Prisma.SortOrder
-  preferred_language?: Prisma.SortOrder
-  preferred_modality?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
   dob?: Prisma.SortOrder
@@ -711,10 +853,26 @@ export type client_profileCountOrderByAggregateInput = {
   emergency_name?: Prisma.SortOrder
   emergency_phone?: Prisma.SortOrder
   reason_for_care?: Prisma.SortOrder
+  presenting_issues?: Prisma.SortOrder
   treatment_goals?: Prisma.SortOrder
+  goal_areas?: Prisma.SortOrder
+  communication_level?: Prisma.SortOrder
+  social_interaction_level?: Prisma.SortOrder
+  sensory_level?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  telehealth_link?: Prisma.SortOrder
+  preferred_language?: Prisma.SortOrder
+  therapist_gender_pref?: Prisma.SortOrder
+  preferred_modality?: Prisma.SortOrder
+  available_time_slots?: Prisma.SortOrder
+  availability_blocks?: Prisma.SortOrder
   insurance_provider?: Prisma.SortOrder
   insurance_plan?: Prisma.SortOrder
   insurance_id?: Prisma.SortOrder
+  clinician_name?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  clinician_id?: Prisma.SortOrder
 }
 
 export type client_profileAvgOrderByAggregateInput = {
@@ -725,14 +883,7 @@ export type client_profileAvgOrderByAggregateInput = {
 
 export type client_profileMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  communication_level?: Prisma.SortOrder
-  social_interaction_level?: Prisma.SortOrder
-  sensory_level?: Prisma.SortOrder
-  location?: Prisma.SortOrder
-  preferred_language?: Prisma.SortOrder
-  preferred_modality?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
   dob?: Prisma.SortOrder
@@ -744,21 +895,26 @@ export type client_profileMaxOrderByAggregateInput = {
   emergency_phone?: Prisma.SortOrder
   reason_for_care?: Prisma.SortOrder
   treatment_goals?: Prisma.SortOrder
+  communication_level?: Prisma.SortOrder
+  social_interaction_level?: Prisma.SortOrder
+  sensory_level?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  telehealth_link?: Prisma.SortOrder
+  preferred_language?: Prisma.SortOrder
+  therapist_gender_pref?: Prisma.SortOrder
+  preferred_modality?: Prisma.SortOrder
   insurance_provider?: Prisma.SortOrder
   insurance_plan?: Prisma.SortOrder
   insurance_id?: Prisma.SortOrder
+  clinician_name?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  clinician_id?: Prisma.SortOrder
 }
 
 export type client_profileMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  communication_level?: Prisma.SortOrder
-  social_interaction_level?: Prisma.SortOrder
-  sensory_level?: Prisma.SortOrder
-  location?: Prisma.SortOrder
-  preferred_language?: Prisma.SortOrder
-  preferred_modality?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
   dob?: Prisma.SortOrder
@@ -770,9 +926,21 @@ export type client_profileMinOrderByAggregateInput = {
   emergency_phone?: Prisma.SortOrder
   reason_for_care?: Prisma.SortOrder
   treatment_goals?: Prisma.SortOrder
+  communication_level?: Prisma.SortOrder
+  social_interaction_level?: Prisma.SortOrder
+  sensory_level?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  telehealth_link?: Prisma.SortOrder
+  preferred_language?: Prisma.SortOrder
+  therapist_gender_pref?: Prisma.SortOrder
+  preferred_modality?: Prisma.SortOrder
   insurance_provider?: Prisma.SortOrder
   insurance_plan?: Prisma.SortOrder
   insurance_id?: Prisma.SortOrder
+  clinician_name?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  clinician_id?: Prisma.SortOrder
 }
 
 export type client_profileSumOrderByAggregateInput = {
@@ -781,20 +949,68 @@ export type client_profileSumOrderByAggregateInput = {
   sensory_level?: Prisma.SortOrder
 }
 
+export type Client_profileListRelationFilter = {
+  every?: Prisma.client_profileWhereInput
+  some?: Prisma.client_profileWhereInput
+  none?: Prisma.client_profileWhereInput
+}
+
+export type client_profileOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type client_profileCreatepresenting_issuesInput = {
+  set: string[]
+}
+
+export type client_profileCreategoal_areasInput = {
+  set: string[]
+}
+
 export type client_profileCreateavailable_time_slotsInput = {
   set: Date[] | string[]
+}
+
+export type client_profileCreateavailability_blocksInput = {
+  set: string[]
 }
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
+export type EnumPatientStatusFieldUpdateOperationsInput = {
+  set?: $Enums.PatientStatus
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type client_profileUpdatepresenting_issuesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type client_profileUpdategoal_areasInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type Enummodality_typeFieldUpdateOperationsInput = {
+  set?: $Enums.modality_type
 }
 
 export type client_profileUpdateavailable_time_slotsInput = {
@@ -802,35 +1018,330 @@ export type client_profileUpdateavailable_time_slotsInput = {
   push?: Date | string | Date[] | string[]
 }
 
-export type Enummodality_typeFieldUpdateOperationsInput = {
-  set?: $Enums.modality_type
+export type client_profileUpdateavailability_blocksInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type client_profileCreateNestedManyWithoutAssigned_clinicianInput = {
+  create?: Prisma.XOR<Prisma.client_profileCreateWithoutAssigned_clinicianInput, Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput> | Prisma.client_profileCreateWithoutAssigned_clinicianInput[] | Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput[]
+  connectOrCreate?: Prisma.client_profileCreateOrConnectWithoutAssigned_clinicianInput | Prisma.client_profileCreateOrConnectWithoutAssigned_clinicianInput[]
+  createMany?: Prisma.client_profileCreateManyAssigned_clinicianInputEnvelope
+  connect?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
+export type client_profileUncheckedCreateNestedManyWithoutAssigned_clinicianInput = {
+  create?: Prisma.XOR<Prisma.client_profileCreateWithoutAssigned_clinicianInput, Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput> | Prisma.client_profileCreateWithoutAssigned_clinicianInput[] | Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput[]
+  connectOrCreate?: Prisma.client_profileCreateOrConnectWithoutAssigned_clinicianInput | Prisma.client_profileCreateOrConnectWithoutAssigned_clinicianInput[]
+  createMany?: Prisma.client_profileCreateManyAssigned_clinicianInputEnvelope
+  connect?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+}
+
+export type client_profileUpdateManyWithoutAssigned_clinicianNestedInput = {
+  create?: Prisma.XOR<Prisma.client_profileCreateWithoutAssigned_clinicianInput, Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput> | Prisma.client_profileCreateWithoutAssigned_clinicianInput[] | Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput[]
+  connectOrCreate?: Prisma.client_profileCreateOrConnectWithoutAssigned_clinicianInput | Prisma.client_profileCreateOrConnectWithoutAssigned_clinicianInput[]
+  upsert?: Prisma.client_profileUpsertWithWhereUniqueWithoutAssigned_clinicianInput | Prisma.client_profileUpsertWithWhereUniqueWithoutAssigned_clinicianInput[]
+  createMany?: Prisma.client_profileCreateManyAssigned_clinicianInputEnvelope
+  set?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+  disconnect?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+  delete?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+  connect?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+  update?: Prisma.client_profileUpdateWithWhereUniqueWithoutAssigned_clinicianInput | Prisma.client_profileUpdateWithWhereUniqueWithoutAssigned_clinicianInput[]
+  updateMany?: Prisma.client_profileUpdateManyWithWhereWithoutAssigned_clinicianInput | Prisma.client_profileUpdateManyWithWhereWithoutAssigned_clinicianInput[]
+  deleteMany?: Prisma.client_profileScalarWhereInput | Prisma.client_profileScalarWhereInput[]
+}
+
+export type client_profileUncheckedUpdateManyWithoutAssigned_clinicianNestedInput = {
+  create?: Prisma.XOR<Prisma.client_profileCreateWithoutAssigned_clinicianInput, Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput> | Prisma.client_profileCreateWithoutAssigned_clinicianInput[] | Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput[]
+  connectOrCreate?: Prisma.client_profileCreateOrConnectWithoutAssigned_clinicianInput | Prisma.client_profileCreateOrConnectWithoutAssigned_clinicianInput[]
+  upsert?: Prisma.client_profileUpsertWithWhereUniqueWithoutAssigned_clinicianInput | Prisma.client_profileUpsertWithWhereUniqueWithoutAssigned_clinicianInput[]
+  createMany?: Prisma.client_profileCreateManyAssigned_clinicianInputEnvelope
+  set?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+  disconnect?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+  delete?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+  connect?: Prisma.client_profileWhereUniqueInput | Prisma.client_profileWhereUniqueInput[]
+  update?: Prisma.client_profileUpdateWithWhereUniqueWithoutAssigned_clinicianInput | Prisma.client_profileUpdateWithWhereUniqueWithoutAssigned_clinicianInput[]
+  updateMany?: Prisma.client_profileUpdateManyWithWhereWithoutAssigned_clinicianInput | Prisma.client_profileUpdateManyWithWhereWithoutAssigned_clinicianInput[]
+  deleteMany?: Prisma.client_profileScalarWhereInput | Prisma.client_profileScalarWhereInput[]
+}
+
+export type client_profileCreateWithoutAssigned_clinicianInput = {
+  id?: string
+  status?: $Enums.PatientStatus
+  first_name?: string | null
+  last_name?: string | null
+  dob?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  gender_identity?: string | null
+  pronouns?: string | null
+  emergency_name?: string | null
+  emergency_phone?: string | null
+  reason_for_care?: string | null
+  presenting_issues?: Prisma.client_profileCreatepresenting_issuesInput | string[]
+  treatment_goals?: string | null
+  goal_areas?: Prisma.client_profileCreategoal_areasInput | string[]
+  communication_level?: number | null
+  social_interaction_level?: number | null
+  sensory_level?: number | null
+  location?: string | null
+  telehealth_link?: string | null
+  preferred_language?: string | null
+  therapist_gender_pref?: string | null
+  preferred_modality?: $Enums.modality_type
+  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileCreateavailability_blocksInput | string[]
+  insurance_provider?: string | null
+  insurance_plan?: string | null
+  insurance_id?: string | null
+  clinician_name?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type client_profileUncheckedCreateWithoutAssigned_clinicianInput = {
+  id?: string
+  status?: $Enums.PatientStatus
+  first_name?: string | null
+  last_name?: string | null
+  dob?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  gender_identity?: string | null
+  pronouns?: string | null
+  emergency_name?: string | null
+  emergency_phone?: string | null
+  reason_for_care?: string | null
+  presenting_issues?: Prisma.client_profileCreatepresenting_issuesInput | string[]
+  treatment_goals?: string | null
+  goal_areas?: Prisma.client_profileCreategoal_areasInput | string[]
+  communication_level?: number | null
+  social_interaction_level?: number | null
+  sensory_level?: number | null
+  location?: string | null
+  telehealth_link?: string | null
+  preferred_language?: string | null
+  therapist_gender_pref?: string | null
+  preferred_modality?: $Enums.modality_type
+  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileCreateavailability_blocksInput | string[]
+  insurance_provider?: string | null
+  insurance_plan?: string | null
+  insurance_id?: string | null
+  clinician_name?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type client_profileCreateOrConnectWithoutAssigned_clinicianInput = {
+  where: Prisma.client_profileWhereUniqueInput
+  create: Prisma.XOR<Prisma.client_profileCreateWithoutAssigned_clinicianInput, Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput>
+}
+
+export type client_profileCreateManyAssigned_clinicianInputEnvelope = {
+  data: Prisma.client_profileCreateManyAssigned_clinicianInput | Prisma.client_profileCreateManyAssigned_clinicianInput[]
+  skipDuplicates?: boolean
+}
+
+export type client_profileUpsertWithWhereUniqueWithoutAssigned_clinicianInput = {
+  where: Prisma.client_profileWhereUniqueInput
+  update: Prisma.XOR<Prisma.client_profileUpdateWithoutAssigned_clinicianInput, Prisma.client_profileUncheckedUpdateWithoutAssigned_clinicianInput>
+  create: Prisma.XOR<Prisma.client_profileCreateWithoutAssigned_clinicianInput, Prisma.client_profileUncheckedCreateWithoutAssigned_clinicianInput>
+}
+
+export type client_profileUpdateWithWhereUniqueWithoutAssigned_clinicianInput = {
+  where: Prisma.client_profileWhereUniqueInput
+  data: Prisma.XOR<Prisma.client_profileUpdateWithoutAssigned_clinicianInput, Prisma.client_profileUncheckedUpdateWithoutAssigned_clinicianInput>
+}
+
+export type client_profileUpdateManyWithWhereWithoutAssigned_clinicianInput = {
+  where: Prisma.client_profileScalarWhereInput
+  data: Prisma.XOR<Prisma.client_profileUpdateManyMutationInput, Prisma.client_profileUncheckedUpdateManyWithoutAssigned_clinicianInput>
+}
+
+export type client_profileScalarWhereInput = {
+  AND?: Prisma.client_profileScalarWhereInput | Prisma.client_profileScalarWhereInput[]
+  OR?: Prisma.client_profileScalarWhereInput[]
+  NOT?: Prisma.client_profileScalarWhereInput | Prisma.client_profileScalarWhereInput[]
+  id?: Prisma.UuidFilter<"client_profile"> | string
+  status?: Prisma.EnumPatientStatusFilter<"client_profile"> | $Enums.PatientStatus
+  first_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  last_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  dob?: Prisma.DateTimeNullableFilter<"client_profile"> | Date | string | null
+  phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  email?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  gender_identity?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  pronouns?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  emergency_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  emergency_phone?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  reason_for_care?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  presenting_issues?: Prisma.StringNullableListFilter<"client_profile">
+  treatment_goals?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  goal_areas?: Prisma.StringNullableListFilter<"client_profile">
+  communication_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  social_interaction_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  sensory_level?: Prisma.IntNullableFilter<"client_profile"> | number | null
+  location?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  telehealth_link?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  preferred_language?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  therapist_gender_pref?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  preferred_modality?: Prisma.Enummodality_typeFilter<"client_profile"> | $Enums.modality_type
+  available_time_slots?: Prisma.DateTimeNullableListFilter<"client_profile">
+  availability_blocks?: Prisma.StringNullableListFilter<"client_profile">
+  insurance_provider?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  insurance_plan?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  insurance_id?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  clinician_name?: Prisma.StringNullableFilter<"client_profile"> | string | null
+  created_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"client_profile"> | Date | string
+  clinician_id?: Prisma.UuidNullableFilter<"client_profile"> | string | null
+}
+
+export type client_profileCreateManyAssigned_clinicianInput = {
+  id?: string
+  status?: $Enums.PatientStatus
+  first_name?: string | null
+  last_name?: string | null
+  dob?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  gender_identity?: string | null
+  pronouns?: string | null
+  emergency_name?: string | null
+  emergency_phone?: string | null
+  reason_for_care?: string | null
+  presenting_issues?: Prisma.client_profileCreatepresenting_issuesInput | string[]
+  treatment_goals?: string | null
+  goal_areas?: Prisma.client_profileCreategoal_areasInput | string[]
+  communication_level?: number | null
+  social_interaction_level?: number | null
+  sensory_level?: number | null
+  location?: string | null
+  telehealth_link?: string | null
+  preferred_language?: string | null
+  therapist_gender_pref?: string | null
+  preferred_modality?: $Enums.modality_type
+  available_time_slots?: Prisma.client_profileCreateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileCreateavailability_blocksInput | string[]
+  insurance_provider?: string | null
+  insurance_plan?: string | null
+  insurance_id?: string | null
+  clinician_name?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type client_profileUpdateWithoutAssigned_clinicianInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPatientStatusFieldUpdateOperationsInput | $Enums.PatientStatus
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender_identity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pronouns?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenting_issues?: Prisma.client_profileUpdatepresenting_issuesInput | string[]
+  treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goal_areas?: Prisma.client_profileUpdategoal_areasInput | string[]
+  communication_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  social_interaction_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sensory_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telehealth_link?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  therapist_gender_pref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
+  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileUpdateavailability_blocksInput | string[]
+  insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinician_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type client_profileUncheckedUpdateWithoutAssigned_clinicianInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPatientStatusFieldUpdateOperationsInput | $Enums.PatientStatus
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender_identity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pronouns?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenting_issues?: Prisma.client_profileUpdatepresenting_issuesInput | string[]
+  treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goal_areas?: Prisma.client_profileUpdategoal_areasInput | string[]
+  communication_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  social_interaction_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sensory_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telehealth_link?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  therapist_gender_pref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
+  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileUpdateavailability_blocksInput | string[]
+  insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinician_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type client_profileUncheckedUpdateManyWithoutAssigned_clinicianInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPatientStatusFieldUpdateOperationsInput | $Enums.PatientStatus
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender_identity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pronouns?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergency_phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason_for_care?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenting_issues?: Prisma.client_profileUpdatepresenting_issuesInput | string[]
+  treatment_goals?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  goal_areas?: Prisma.client_profileUpdategoal_areasInput | string[]
+  communication_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  social_interaction_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sensory_level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telehealth_link?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  therapist_gender_pref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferred_modality?: Prisma.Enummodality_typeFieldUpdateOperationsInput | $Enums.modality_type
+  available_time_slots?: Prisma.client_profileUpdateavailable_time_slotsInput | Date[] | string[]
+  availability_blocks?: Prisma.client_profileUpdateavailability_blocksInput | string[]
+  insurance_provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  insurance_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clinician_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
 
 export type client_profileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  communication_level?: boolean
-  social_interaction_level?: boolean
-  sensory_level?: boolean
-  available_time_slots?: boolean
-  location?: boolean
-  preferred_language?: boolean
-  preferred_modality?: boolean
-  created_at?: boolean
-  updated_at?: boolean
+  status?: boolean
   first_name?: boolean
   last_name?: boolean
   dob?: boolean
@@ -841,23 +1352,32 @@ export type client_profileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   emergency_name?: boolean
   emergency_phone?: boolean
   reason_for_care?: boolean
+  presenting_issues?: boolean
   treatment_goals?: boolean
+  goal_areas?: boolean
+  communication_level?: boolean
+  social_interaction_level?: boolean
+  sensory_level?: boolean
+  location?: boolean
+  telehealth_link?: boolean
+  preferred_language?: boolean
+  therapist_gender_pref?: boolean
+  preferred_modality?: boolean
+  available_time_slots?: boolean
+  availability_blocks?: boolean
   insurance_provider?: boolean
   insurance_plan?: boolean
   insurance_id?: boolean
+  clinician_name?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  clinician_id?: boolean
+  assigned_clinician?: boolean | Prisma.client_profile$assigned_clinicianArgs<ExtArgs>
 }, ExtArgs["result"]["client_profile"]>
 
 export type client_profileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  communication_level?: boolean
-  social_interaction_level?: boolean
-  sensory_level?: boolean
-  available_time_slots?: boolean
-  location?: boolean
-  preferred_language?: boolean
-  preferred_modality?: boolean
-  created_at?: boolean
-  updated_at?: boolean
+  status?: boolean
   first_name?: boolean
   last_name?: boolean
   dob?: boolean
@@ -868,23 +1388,32 @@ export type client_profileSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   emergency_name?: boolean
   emergency_phone?: boolean
   reason_for_care?: boolean
+  presenting_issues?: boolean
   treatment_goals?: boolean
+  goal_areas?: boolean
+  communication_level?: boolean
+  social_interaction_level?: boolean
+  sensory_level?: boolean
+  location?: boolean
+  telehealth_link?: boolean
+  preferred_language?: boolean
+  therapist_gender_pref?: boolean
+  preferred_modality?: boolean
+  available_time_slots?: boolean
+  availability_blocks?: boolean
   insurance_provider?: boolean
   insurance_plan?: boolean
   insurance_id?: boolean
+  clinician_name?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  clinician_id?: boolean
+  assigned_clinician?: boolean | Prisma.client_profile$assigned_clinicianArgs<ExtArgs>
 }, ExtArgs["result"]["client_profile"]>
 
 export type client_profileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  communication_level?: boolean
-  social_interaction_level?: boolean
-  sensory_level?: boolean
-  available_time_slots?: boolean
-  location?: boolean
-  preferred_language?: boolean
-  preferred_modality?: boolean
-  created_at?: boolean
-  updated_at?: boolean
+  status?: boolean
   first_name?: boolean
   last_name?: boolean
   dob?: boolean
@@ -895,23 +1424,32 @@ export type client_profileSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   emergency_name?: boolean
   emergency_phone?: boolean
   reason_for_care?: boolean
+  presenting_issues?: boolean
   treatment_goals?: boolean
+  goal_areas?: boolean
+  communication_level?: boolean
+  social_interaction_level?: boolean
+  sensory_level?: boolean
+  location?: boolean
+  telehealth_link?: boolean
+  preferred_language?: boolean
+  therapist_gender_pref?: boolean
+  preferred_modality?: boolean
+  available_time_slots?: boolean
+  availability_blocks?: boolean
   insurance_provider?: boolean
   insurance_plan?: boolean
   insurance_id?: boolean
+  clinician_name?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  clinician_id?: boolean
+  assigned_clinician?: boolean | Prisma.client_profile$assigned_clinicianArgs<ExtArgs>
 }, ExtArgs["result"]["client_profile"]>
 
 export type client_profileSelectScalar = {
   id?: boolean
-  communication_level?: boolean
-  social_interaction_level?: boolean
-  sensory_level?: boolean
-  available_time_slots?: boolean
-  location?: boolean
-  preferred_language?: boolean
-  preferred_modality?: boolean
-  created_at?: boolean
-  updated_at?: boolean
+  status?: boolean
   first_name?: boolean
   last_name?: boolean
   dob?: boolean
@@ -922,30 +1460,49 @@ export type client_profileSelectScalar = {
   emergency_name?: boolean
   emergency_phone?: boolean
   reason_for_care?: boolean
+  presenting_issues?: boolean
   treatment_goals?: boolean
+  goal_areas?: boolean
+  communication_level?: boolean
+  social_interaction_level?: boolean
+  sensory_level?: boolean
+  location?: boolean
+  telehealth_link?: boolean
+  preferred_language?: boolean
+  therapist_gender_pref?: boolean
+  preferred_modality?: boolean
+  available_time_slots?: boolean
+  availability_blocks?: boolean
   insurance_provider?: boolean
   insurance_plan?: boolean
   insurance_id?: boolean
+  clinician_name?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  clinician_id?: boolean
 }
 
-export type client_profileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "communication_level" | "social_interaction_level" | "sensory_level" | "available_time_slots" | "location" | "preferred_language" | "preferred_modality" | "created_at" | "updated_at" | "first_name" | "last_name" | "dob" | "phone" | "email" | "gender_identity" | "pronouns" | "emergency_name" | "emergency_phone" | "reason_for_care" | "treatment_goals" | "insurance_provider" | "insurance_plan" | "insurance_id", ExtArgs["result"]["client_profile"]>
+export type client_profileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "status" | "first_name" | "last_name" | "dob" | "phone" | "email" | "gender_identity" | "pronouns" | "emergency_name" | "emergency_phone" | "reason_for_care" | "presenting_issues" | "treatment_goals" | "goal_areas" | "communication_level" | "social_interaction_level" | "sensory_level" | "location" | "telehealth_link" | "preferred_language" | "therapist_gender_pref" | "preferred_modality" | "available_time_slots" | "availability_blocks" | "insurance_provider" | "insurance_plan" | "insurance_id" | "clinician_name" | "created_at" | "updated_at" | "clinician_id", ExtArgs["result"]["client_profile"]>
+export type client_profileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  assigned_clinician?: boolean | Prisma.client_profile$assigned_clinicianArgs<ExtArgs>
+}
+export type client_profileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  assigned_clinician?: boolean | Prisma.client_profile$assigned_clinicianArgs<ExtArgs>
+}
+export type client_profileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  assigned_clinician?: boolean | Prisma.client_profile$assigned_clinicianArgs<ExtArgs>
+}
 
 export type $client_profilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "client_profile"
-  objects: {}
+  objects: {
+    assigned_clinician: Prisma.$clinician_profilePayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    communication_level: number
-    social_interaction_level: number
-    sensory_level: number
-    available_time_slots: Date[]
-    location: string
-    preferred_language: string
-    preferred_modality: $Enums.modality_type
-    created_at: Date
-    updated_at: Date
-    first_name: string
-    last_name: string
+    status: $Enums.PatientStatus
+    first_name: string | null
+    last_name: string | null
     dob: Date | null
     phone: string | null
     email: string | null
@@ -954,10 +1511,26 @@ export type $client_profilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     emergency_name: string | null
     emergency_phone: string | null
     reason_for_care: string | null
+    presenting_issues: string[]
     treatment_goals: string | null
+    goal_areas: string[]
+    communication_level: number | null
+    social_interaction_level: number | null
+    sensory_level: number | null
+    location: string | null
+    telehealth_link: string | null
+    preferred_language: string | null
+    therapist_gender_pref: string | null
+    preferred_modality: $Enums.modality_type
+    available_time_slots: Date[]
+    availability_blocks: string[]
     insurance_provider: string | null
     insurance_plan: string | null
     insurance_id: string | null
+    clinician_name: string | null
+    created_at: Date
+    updated_at: Date
+    clinician_id: string | null
   }, ExtArgs["result"]["client_profile"]>
   composites: {}
 }
@@ -1352,6 +1925,7 @@ readonly fields: client_profileFieldRefs;
  */
 export interface Prisma__client_profileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  assigned_clinician<T extends Prisma.client_profile$assigned_clinicianArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.client_profile$assigned_clinicianArgs<ExtArgs>>): Prisma.Prisma__clinician_profileClient<runtime.Types.Result.GetResult<Prisma.$clinician_profilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1382,15 +1956,7 @@ export interface Prisma__client_profileClient<T, Null = never, ExtArgs extends r
  */
 export interface client_profileFieldRefs {
   readonly id: Prisma.FieldRef<"client_profile", 'String'>
-  readonly communication_level: Prisma.FieldRef<"client_profile", 'Int'>
-  readonly social_interaction_level: Prisma.FieldRef<"client_profile", 'Int'>
-  readonly sensory_level: Prisma.FieldRef<"client_profile", 'Int'>
-  readonly available_time_slots: Prisma.FieldRef<"client_profile", 'DateTime[]'>
-  readonly location: Prisma.FieldRef<"client_profile", 'String'>
-  readonly preferred_language: Prisma.FieldRef<"client_profile", 'String'>
-  readonly preferred_modality: Prisma.FieldRef<"client_profile", 'modality_type'>
-  readonly created_at: Prisma.FieldRef<"client_profile", 'DateTime'>
-  readonly updated_at: Prisma.FieldRef<"client_profile", 'DateTime'>
+  readonly status: Prisma.FieldRef<"client_profile", 'PatientStatus'>
   readonly first_name: Prisma.FieldRef<"client_profile", 'String'>
   readonly last_name: Prisma.FieldRef<"client_profile", 'String'>
   readonly dob: Prisma.FieldRef<"client_profile", 'DateTime'>
@@ -1401,10 +1967,26 @@ export interface client_profileFieldRefs {
   readonly emergency_name: Prisma.FieldRef<"client_profile", 'String'>
   readonly emergency_phone: Prisma.FieldRef<"client_profile", 'String'>
   readonly reason_for_care: Prisma.FieldRef<"client_profile", 'String'>
+  readonly presenting_issues: Prisma.FieldRef<"client_profile", 'String[]'>
   readonly treatment_goals: Prisma.FieldRef<"client_profile", 'String'>
+  readonly goal_areas: Prisma.FieldRef<"client_profile", 'String[]'>
+  readonly communication_level: Prisma.FieldRef<"client_profile", 'Int'>
+  readonly social_interaction_level: Prisma.FieldRef<"client_profile", 'Int'>
+  readonly sensory_level: Prisma.FieldRef<"client_profile", 'Int'>
+  readonly location: Prisma.FieldRef<"client_profile", 'String'>
+  readonly telehealth_link: Prisma.FieldRef<"client_profile", 'String'>
+  readonly preferred_language: Prisma.FieldRef<"client_profile", 'String'>
+  readonly therapist_gender_pref: Prisma.FieldRef<"client_profile", 'String'>
+  readonly preferred_modality: Prisma.FieldRef<"client_profile", 'modality_type'>
+  readonly available_time_slots: Prisma.FieldRef<"client_profile", 'DateTime[]'>
+  readonly availability_blocks: Prisma.FieldRef<"client_profile", 'String[]'>
   readonly insurance_provider: Prisma.FieldRef<"client_profile", 'String'>
   readonly insurance_plan: Prisma.FieldRef<"client_profile", 'String'>
   readonly insurance_id: Prisma.FieldRef<"client_profile", 'String'>
+  readonly clinician_name: Prisma.FieldRef<"client_profile", 'String'>
+  readonly created_at: Prisma.FieldRef<"client_profile", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"client_profile", 'DateTime'>
+  readonly clinician_id: Prisma.FieldRef<"client_profile", 'String'>
 }
     
 
@@ -1421,6 +2003,10 @@ export type client_profileFindUniqueArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the client_profile
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
   /**
    * Filter, which client_profile to fetch.
    */
@@ -1440,6 +2026,10 @@ export type client_profileFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
+  /**
    * Filter, which client_profile to fetch.
    */
   where: Prisma.client_profileWhereUniqueInput
@@ -1457,6 +2047,10 @@ export type client_profileFindFirstArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the client_profile
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
   /**
    * Filter, which client_profile to fetch.
    */
@@ -1506,6 +2100,10 @@ export type client_profileFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
+  /**
    * Filter, which client_profile to fetch.
    */
   where?: Prisma.client_profileWhereInput
@@ -1553,6 +2151,10 @@ export type client_profileFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the client_profile
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
   /**
    * Filter, which client_profiles to fetch.
    */
@@ -1602,9 +2204,13 @@ export type client_profileCreateArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
+  /**
    * The data needed to create a client_profile.
    */
-  data: Prisma.XOR<Prisma.client_profileCreateInput, Prisma.client_profileUncheckedCreateInput>
+  data?: Prisma.XOR<Prisma.client_profileCreateInput, Prisma.client_profileUncheckedCreateInput>
 }
 
 /**
@@ -1635,6 +2241,10 @@ export type client_profileCreateManyAndReturnArgs<ExtArgs extends runtime.Types.
    */
   data: Prisma.client_profileCreateManyInput | Prisma.client_profileCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1649,6 +2259,10 @@ export type client_profileUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the client_profile
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
   /**
    * The data needed to update a client_profile.
    */
@@ -1701,6 +2315,10 @@ export type client_profileUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.
    * Limit how many client_profiles to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1715,6 +2333,10 @@ export type client_profileUpsertArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the client_profile
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
   /**
    * The filter to search for the client_profile to update in case it exists.
    */
@@ -1742,6 +2364,10 @@ export type client_profileDeleteArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
+  /**
    * Filter which client_profile to delete.
    */
   where: Prisma.client_profileWhereUniqueInput
@@ -1762,6 +2388,25 @@ export type client_profileDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * client_profile.assigned_clinician
+ */
+export type client_profile$assigned_clinicianArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the clinician_profile
+   */
+  select?: Prisma.clinician_profileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the clinician_profile
+   */
+  omit?: Prisma.clinician_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.clinician_profileInclude<ExtArgs> | null
+  where?: Prisma.clinician_profileWhereInput
+}
+
+/**
  * client_profile without action
  */
 export type client_profileDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1773,4 +2418,8 @@ export type client_profileDefaultArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the client_profile
    */
   omit?: Prisma.client_profileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.client_profileInclude<ExtArgs> | null
 }

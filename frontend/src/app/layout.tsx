@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// 1. Import the Toaster
+import { Toaster } from "@/components/ui/sonner";
+
 const geistSans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -53,6 +56,9 @@ export default function RootLayout({
           {/* Page Content */}
           <div className="p-8 flex-1">{children}</div>
         </main>
+
+        {/* 2. Add the Toaster component right before the closing body tag */}
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );

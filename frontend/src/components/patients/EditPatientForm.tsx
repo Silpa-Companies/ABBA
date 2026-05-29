@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateClientAction } from "@/app/actions/clients";
-import type { client_profile } from "@/generated/prisma/client";
+import type { client_profileModel as client_profile } from "@/generated/prisma/models/client_profile";
 
 export default function EditPatientForm({
   patient,

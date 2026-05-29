@@ -1,44 +1,74 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Edit, Eye, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { formatDistanceToNow, format } from "date-fns";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-// 1. Import the source of truth directly from Prisma
-import type { client_profile } from "@/generated/prisma/client";
+import type { client_profileModel as client_profile } from "@/generated/prisma/models/client_profile";
 
-// 2. Styled badge for the Modality enum
-const ModalityBadge = ({ modality }: { modality: string | null }) => {
-  if (!modality) return null;
+// 1. New Status Badge matching the mockup
+const StatusBadge = ({ status }: { status: string | null | undefined }) => {
+  // Fallback to "UNDER_REVIEW" if status is missing in the DB
+  const safeStatus = status || "UNDER_REVIEW";
 
-  const styles: Record<string, string> = {
-    in_person: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    telehealth: "bg-blue-50 text-blue-700 border-blue-200",
-    hybrid: "bg-purple-50 text-purple-700 border-purple-200",
+  // Configuration for both display labels and backend enum values
+  const config: Record<string, string> = {
+    // Enum values (Backend)
+    MATCHED: "bg-zinc-950 text-white border-zinc-950",
+    UNDER_REVIEW: "bg-amber-50 text-amber-700 border-amber-200",
+    DRAFT: "bg-zinc-50 text-zinc-600 border-zinc-200",
+    ACTIVE: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    // Display values (Frontend fallbacks)
+    Matched: "bg-zinc-950 text-white border-zinc-950",
+    "Under Review": "bg-amber-50 text-amber-700 border-amber-200",
+    Draft: "bg-zinc-50 text-zinc-600 border-zinc-200",
+    Active: "bg-emerald-50 text-emerald-700 border-emerald-200",
   };
 
-  const labels: Record<string, string> = {
-    in_person: "In-Person",
-    telehealth: "Telehealth",
-    hybrid: "Hybrid",
+  const dotConfig: Record<string, string> = {
+    MATCHED: "bg-white",
+    UNDER_REVIEW: "bg-amber-500",
+    DRAFT: "bg-zinc-400",
+    ACTIVE: "bg-emerald-500",
+    Matched: "bg-white",
+    "Under Review": "bg-amber-500",
+    Draft: "bg-zinc-400",
+    Active: "bg-emerald-500",
   };
+
+  const badgeStyle = config[safeStatus] || config["DRAFT"];
+  const dotStyle = dotConfig[safeStatus] || dotConfig["DRAFT"];
+
+  // Prettify the status for display (e.g., UNDER_REVIEW -> Under Review)
+  const displayStatus = safeStatus
+    .replace(/_/g, " ")
+    .toLowerCase()
+    .replace(/\b\w/g, (l) => l.toUpperCase());
 
   return (
     <Badge
       variant="outline"
-      className={`rounded-full px-2.5 py-0.5 font-medium shadow-sm ${styles[modality] || "bg-gray-50 text-gray-700"}`}
+      className={`rounded-full px-2.5 py-0.5 font-medium shadow-sm gap-1.5 ${badgeStyle}`}
     >
-      {labels[modality] || modality}
+      <span className={`h-1.5 w-1.5 rounded-full ${dotStyle}`} />
+      {displayStatus}
     </Badge>
   );
 };
 
-const getInitials = (firstName: string, lastName: string) => {
-  return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+const getInitials = (firstName: string | null, lastName: string | null) => {
+  return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`.toUpperCase();
 };
 
-// 3. Pass the Prisma type directly into the ColumnDef
 export const columns: ColumnDef<client_profile>[] = [
   {
     id: "select",
@@ -64,21 +94,30 @@ export const columns: ColumnDef<client_profile>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    id: "name",
+    accessorFn: (row) => `${row.first_name} ${row.last_name}`,
     header: "CLIENT",
     cell: ({ row }) => {
       const client = row.original;
+      const rawDob = client.dob;
+      const rawGender = client.gender_identity;
+
+      const dobStr = rawDob
+        ? format(new Date(rawDob), "dd MMM yyyy")
+        : "Unknown DOB";
+      const genderStr = rawGender ? rawGender.charAt(0).toUpperCase() : "U";
+
       return (
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-zinc-900 text-xs font-medium text-white">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zinc-700 text-xs font-medium text-white">
             {getInitials(client.first_name, client.last_name)}
           </div>
           <div className="flex flex-col">
-            <span className="font-medium text-zinc-900">
+            <span className="font-semibold text-zinc-900 text-sm">
               {client.first_name} {client.last_name}
             </span>
-            <span className="text-xs text-zinc-500">
-              {client.location || "No location"} · {client.preferred_language}
+            <span className="text-xs text-zinc-400 mt-0.5">
+              DOB: {dobStr} · {genderStr}
             </span>
           </div>
         </div>
@@ -86,45 +125,52 @@ export const columns: ColumnDef<client_profile>[] = [
     },
   },
   {
-    accessorKey: "preferred_modality",
-    header: "MODALITY",
-    cell: ({ row }) => (
-      <ModalityBadge modality={row.getValue("preferred_modality") as string} />
-    ),
-  },
-  {
-    id: "profile_levels",
-    header: "PROFILE METRICS",
-    cell: ({ row }) => {
-      const client = row.original;
-      return (
-        <div className="flex gap-2 text-xs text-zinc-600 font-medium">
-          <span title="Communication Level">
-            Comm: {client.communication_level}
-          </span>{" "}
-          |
-          <span title="Social Interaction Level">
-            Soc: {client.social_interaction_level}
-          </span>{" "}
-          |<span title="Sensory Level">Sens: {client.sensory_level}</span>
-        </div>
-      );
-    },
+    accessorKey: "status",
+    header: "STATUS",
+    cell: ({ row }) => <StatusBadge status={row.original.status} />,
   },
   {
     accessorKey: "updated_at",
     header: "LAST UPDATED",
     cell: ({ row }) => {
-      // Prisma returns Date objects. Next.js Server Actions automatically pass Dates to Client Components.
       const date = new Date(row.getValue("updated_at"));
+
       return (
-        <span className="text-sm text-zinc-600">
-          {date.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </span>
+        <div className="flex flex-col">
+          <span className="text-sm font-medium text-zinc-700">
+            {formatDistanceToNow(date, { addSuffix: true })}
+          </span>
+          <span className="text-xs text-zinc-400 mt-0.5">
+            {format(date, "MMM d, yyyy")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    id: "clinician",
+    header: "ASSIGNED CLINICIAN",
+    cell: ({ row }) => {
+      const clinicianName = row.original.clinician_name || "Unassigned";
+
+      if (clinicianName === "Unassigned") {
+        return <span className="text-sm text-zinc-400 italic">Unassigned</span>;
+      }
+
+      const initials = clinicianName
+        .replace("Dr. ", "")
+        .split(" ")
+        .map((n: string) => n[0])
+        .join("")
+        .toUpperCase();
+
+      return (
+        <div className="flex items-center gap-2">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-semibold text-zinc-600 border border-zinc-200">
+            {initials.substring(0, 2)}
+          </div>
+          <span className="text-sm text-zinc-700">{clinicianName}</span>
+        </div>
       );
     },
   },
@@ -133,22 +179,68 @@ export const columns: ColumnDef<client_profile>[] = [
     header: "SYSTEM ID",
     cell: ({ row }) => {
       const fullId = row.getValue("id") as string;
+      const displayId = `CM-${fullId.replace(/\D/g, "").padEnd(6, "0").substring(0, 6)}`;
+
       return (
-        <span className="text-xs text-zinc-400 font-mono" title={fullId}>
-          {fullId.substring(0, 8)}...
+        <span className="text-xs text-zinc-400" title={fullId}>
+          {displayId}
         </span>
       );
     },
   },
   {
     id: "actions",
-    cell: () => (
-      <Button
-        variant="ghost"
-        className="h-8 w-8 p-0 text-zinc-400 hover:text-zinc-900"
-      >
-        <MoreHorizontal className="h-4 w-4" />
-      </Button>
-    ),
+    cell: ({ row, table }) => {
+      const patient = row.original;
+
+      const meta = table.options.meta as
+        | {
+            onEdit: (patient: client_profile) => void;
+            onView: (patient: client_profile) => void;
+            onDelete: (id: string) => void;
+          }
+        | undefined;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="h-8 w-8 p-0 text-zinc-400 hover:text-zinc-900"
+            >
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuItem
+              onClick={() => meta?.onEdit(patient)}
+              className="cursor-pointer"
+            >
+              <Edit className="mr-2 h-4 w-4 text-zinc-500" />
+              Edit Information
+            </DropdownMenuItem>
+
+            <DropdownMenuItem
+              onClick={() => meta?.onView(patient)}
+              className="cursor-pointer"
+            >
+              <Eye className="mr-2 h-4 w-4 text-zinc-500" />
+              View Information
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={() => meta?.onDelete(patient.id)}
+              className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
+            >
+              <Trash className="mr-2 h-4 w-4" />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];

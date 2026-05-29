@@ -9,6 +9,16 @@
 * 🟢 You can import this file directly.
 */
 
+export const PatientStatus = {
+  DRAFT: 'DRAFT',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  MATCHED: 'MATCHED',
+  ACTIVE: 'ACTIVE'
+} as const
+
+export type PatientStatus = (typeof PatientStatus)[keyof typeof PatientStatus]
+
+
 export const modality_type = {
   in_person: 'in_person',
   telehealth: 'telehealth',
