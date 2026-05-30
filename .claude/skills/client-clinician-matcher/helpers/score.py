@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Score and rank clinicians against a client profile.
+"""Rank clinicians against a client profile.
 
 Usage:
-    python3 score.py <client.json> <clinicians.json> [--top N]
+    python3 score.py [--in PATH] [--top N]
 
-Prints a JSON array of the top N (default 5) clinicians, each with id, name,
-score, and a single-sentence match_reason.
+Reads a JSON object from --in (default /tmp/profiles.json), shape:
+    {"client": <client_obj>, "clinicians": <list-or-envelope>}
 
-Rules and weights follow SKILL.md / references/scoring_rules.md.
+Prints ONLY a JSON array of the top N (default 5) clinicians to stdout.
+This script does no network I/O — see helpers/fetch_profiles.py for that.
 """
 import argparse
 import json
@@ -315,20 +316,24 @@ def rank(client: dict, clinicians: list[dict], top: int = 5) -> list[dict]:
     return top_n
 
 
-def _load(path: str) -> Any:
-    with open(path) as f:
-        return json.load(f)
-
-
 def main() -> int:
     p = argparse.ArgumentParser()
-    p.add_argument("client_json")
-    p.add_argument("clinicians_json")
+    p.add_argument("--in", dest="in_path", default="/tmp/profiles.json")
     p.add_argument("--top", type=int, default=5)
     args = p.parse_args()
 
-    client = _load(args.client_json)
-    clinicians = _load(args.clinicians_json)
+    try:
+        with open(args.in_path) as f:
+            payload = json.load(f)
+    except FileNotFoundError:
+        raise SystemExit(f"No such file: {args.in_path} (run fetch_profiles.py first)")
+    except json.JSONDecodeError as e:
+        raise SystemExit(f"Invalid JSON in {args.in_path}: {e}")
+    if not isinstance(payload, dict) or "client" not in payload or "clinicians" not in payload:
+        raise SystemExit(f'{args.in_path} must be a JSON object with "client" and "clinicians" keys')
+
+    client = payload["client"]
+    clinicians = payload["clinicians"]
 
     # Unwrap common envelopes.
     if isinstance(clinicians, dict):

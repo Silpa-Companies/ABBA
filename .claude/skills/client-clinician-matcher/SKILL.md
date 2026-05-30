@@ -7,20 +7,46 @@ description: Match a client to their best-fit clinicians by fetching profiles fr
 
 Matches one client to their best-fit clinicians by fetching profiles from the local API and scoring with a weighted, diagnosis-first comparison.
 
-## Step 1: Fetch the data
+## Run it
 
-The user provides a client UUID. Fetch both endpoints:
+The user provides a client UUID. The endpoints are NOT hardcoded — they're in `references/config.json`, regenerated at every skill upload from the developer's tunnel URL.
 
-- `GET http://localhost:3000/api/clinicians/`
-- `GET http://localhost:3000/api/clients/<uuid>/`
-
-Use the helper:
+### Step 1: load the endpoint URLs
 
 ```bash
-python3 helpers/fetch_profiles.py <client_uuid>
+cat references/config.json
 ```
 
-It writes `client.json` and `clinicians.json` into the current directory and prints both payloads. Note the API may wrap the clinician list as `{"clinicians": [...]}` — `score.py` unwraps that automatically. If the API is unreachable, surface the underlying error (connection refused, 404, etc.); don't fabricate data.
+It contains:
+
+```json
+{
+  "clinicians_url": "https://<host>/api/clinicians/",
+  "client_url_template": "https://<host>/api/clients/{uuid}/"
+}
+```
+
+Substitute the client UUID into `{uuid}` in `client_url_template`.
+
+### Step 2: fetch the JSON
+
+`helpers/fetch_profiles.py` only does the HTTP calls. It saves `{"client": ..., "clinicians": ...}` to `/tmp/profiles.json` (the container's tmpfs) and prints the path:
+
+```bash
+python3 helpers/fetch_profiles.py \
+  --client-url     "<resolved client_url_template>" \
+  --clinicians-url "<clinicians_url>"
+```
+
+### Step 3: score it
+
+`helpers/score.py` does no network I/O — it reads `/tmp/profiles.json` and prints the ranked top-5 JSON array:
+
+```bash
+python3 helpers/score.py
+```
+
+The API may wrap the clinician list as `{"clinicians": [...]}`; `score.py` unwraps that automatically. If either endpoint is unreachable, surface the underlying error from `fetch_profiles.py`; don't fabricate data. `/tmp/profiles.json` is throwaway — the container is wiped at session end.
 
 ## Expected API schemas
 
@@ -53,13 +79,9 @@ It writes `client.json` and `clinicians.json` into the current directory and pri
 }
 ```
 
-## Step 2: Score and rank
+## Scoring rules
 
-```bash
-python3 helpers/score.py client.json clinicians.json
-```
-
-This prints the top 5 ranked clinicians as a JSON array. See `references/scoring_rules.md` for the full rule definitions; quick summary:
+See `references/scoring_rules.md` for the full rule definitions; quick summary:
 
 | Priority | Rule | Max points |
 |---|------|------|
@@ -79,9 +101,9 @@ Severity scales linearly: level 0 = ignored (not a problem area for this client)
 
 The score is normalized over the client's actual problem areas, so a clinician who covers all of them earns the full 100, regardless of how many areas the client has.
 
-## Step 3: Return the top 5
+## Return the top 5
 
-Output exactly this shape, as a JSON array:
+`score.py` already prints exactly this shape — pass its stdout through unchanged:
 
 ```json
 [

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Fetch a client profile and the full clinician list from the local API.
+"""Fetch the client + clinicians payloads and save them as one JSON file.
 
 Usage:
-    python3 fetch_profiles.py <client_uuid> [--base-url URL] [--out DIR]
+    python3 fetch_profiles.py --client-url <url> --clinicians-url <url> [--out PATH]
 
-Writes client.json and clinicians.json into the output directory (default: cwd)
-and prints both payloads so the model can inspect actual field names.
+Writes a single JSON object to --out (default /tmp/profiles.json):
+    {"client": <client_obj>, "clinicians": <clinicians_payload>}
+
+Prints the absolute path of the written file to stdout.
 """
 import argparse
 import json
@@ -13,11 +15,12 @@ import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+from typing import Any
 
-DEFAULT_BASE = "http://localhost:3000"
+DEFAULT_OUT = "/tmp/profiles.json"
 
 
-def fetch_json(url: str) -> object:
+def fetch_json(url: str) -> Any:
     req = urllib.request.Request(url, headers={"Accept": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
@@ -34,26 +37,19 @@ def fetch_json(url: str) -> object:
 
 def main() -> int:
     p = argparse.ArgumentParser()
-    p.add_argument("client_uuid")
-    p.add_argument("--base-url", default=DEFAULT_BASE)
-    p.add_argument("--out", default=".", help="directory to write client.json and clinicians.json")
+    p.add_argument("--client-url", required=True)
+    p.add_argument("--clinicians-url", required=True)
+    p.add_argument("--out", default=DEFAULT_OUT)
     args = p.parse_args()
 
+    payload = {
+        "client": fetch_json(args.client_url),
+        "clinicians": fetch_json(args.clinicians_url),
+    }
     out = Path(args.out)
-    out.mkdir(parents=True, exist_ok=True)
-
-    client_url = f"{args.base_url.rstrip('/')}/api/clients/{args.client_uuid}/"
-    clinicians_url = f"{args.base_url.rstrip('/')}/api/clinicians/"
-
-    print(f"Fetching client: {client_url}", file=sys.stderr)
-    client = fetch_json(client_url)
-    print(f"Fetching clinicians: {clinicians_url}", file=sys.stderr)
-    clinicians = fetch_json(clinicians_url)
-
-    (out / "client.json").write_text(json.dumps(client, indent=2))
-    (out / "clinicians.json").write_text(json.dumps(clinicians, indent=2))
-
-    print(json.dumps({"client": client, "clinicians": clinicians}, indent=2))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(payload, indent=2))
+    print(str(out.resolve()))
     return 0
 
 
