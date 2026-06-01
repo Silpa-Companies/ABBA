@@ -1,0 +1,15 @@
+# This file maps each directory to a developer who owns it
+# When a Pull Request touches a directory, it will request the directory's owner for review
+
+# Skyler - Identity & Security
+# Eric - Backend & Data
+# Hayden - Frontend & UX
+# Tien - Shared Components & Domain Forms
+# Nicholas - Devops
+
+frontend/* @hayydennee @ducphan17
+backend/* @Eric-Yan-742 @Complex1t
+packages/ui/* @hayydennee @ducphan17
+content/* @ducphan17
+infra/* @Fufuos @Complex1t
+.github/* @Fufuos
