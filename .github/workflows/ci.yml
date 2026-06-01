@@ -1,0 +1,85 @@
+name: ABBA CI
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PNPM_VERSION: 11
+
+jobs:
+  ci:
+    name: Install, Lint, Typecheck, Test, Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Restore node_modules cache
+        id: nm-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            apps/*/node_modules
+            packages/*/node_modules
+          key: nm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: nm-${{ runner.os }}-
+
+      - name: Install dependencies
+        if: steps.nm-cache.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter @abba/database generate
+
+      - name: Lint
+        run: pnpm -r lint
+
+      - name: Test
+        run: pnpm -r test --if-present
+        env:
+          CI: true
+
+      - name: Build
+        run: pnpm -r build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+
+      - name: Upload web build
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build-${{ github.sha }}
+          path: apps/web/.next
+          retention-days: 3
+
+  # ── Secret-scanning placeholder
+  # TODO ABBA-19: replace this job with the real secret-scanning action once
+  # Developer 1 has chosen the scanner (e.g. trufflesecurity/trufflehog-actions-scan
+  # or gitleaks/gitleaks-action). This stub keeps the required-status-check name
+  secret-scan:
+    name: Secret Scanning (ABBA-19)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history needed by most scanners
+
+      # replace with real scanner in ABBA-19
+      - name: Placeholder (coordinate with Developer 1)
+        run: |
+          echo "Secret scanning step is reserved for ABBA-19."
+          echo "Integrate the agreed scanner here and remove this placeholder."
