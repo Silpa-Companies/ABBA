@@ -23,6 +23,26 @@ abba/
 - Node.js 18+
 - pnpm 8+
 
+#### Clone this repository
+
+```bash
+git clone git@github.com:Silpa-Companies/ABBA.git
+```
+
+#### Navigate into directory and proceed with install and build
+
+```bash
+cd ABBA
+pnpm install
+pnpm build
+```
+
+#### Run
+
+```bash
+pnpm dev
+```
+
 ## Workspace Commands
 
 All commands are run from the root directory:
