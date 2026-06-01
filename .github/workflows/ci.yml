@@ -19,25 +19,19 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+          run_install: false
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: "22"
           cache: pnpm
 
-      - name: Restore node_modules cache
-        id: nm-cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            apps/*/node_modules
-            packages/*/node_modules
-          key: nm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: nm-${{ runner.os }}-
-
       - name: Install dependencies
-        if: steps.nm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Generate Prisma client
@@ -79,7 +73,7 @@ jobs:
           fetch-depth: 0 # full history needed by most scanners
 
       # replace with real scanner in ABBA-19
-      - name: Placeholder (coordinate with Developer 1)
+      - name: Placeholder
         run: |
           echo "Secret scanning step is reserved for ABBA-19."
           echo "Integrate the agreed scanner here and remove this placeholder."
