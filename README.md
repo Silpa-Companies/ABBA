@@ -38,5 +38,5 @@ All commands are run from the root directory:
 ## Adding New Apps or Packages
 
 1. Create a new directory in `apps/` or `packages/`
-2. Add a `package.json` with the workspace protocol
+2. Add a `package.json` with the workspace
 3. Run `pnpm install` to update workspace locks
